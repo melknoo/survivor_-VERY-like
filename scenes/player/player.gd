@@ -14,6 +14,25 @@ signal level_changed(new_level: int)
 @export var char_col: int = 0  # 0-6, welcher Charakter aus rogues.png
 @export var char_row: int = 0  # 0-6, welche Zeile aus rogues.png
 
+# Base values (never modified, used by recalculate_stats)
+var base_move_speed: float = 200.0
+var base_max_hp: int = 100
+var base_attack_damage: float = 10.0
+var base_attack_speed: float = 1.0
+var base_pickup_range: float = 80.0
+
+# Bonus accumulators (set by apply_upgrade_stat, recalculated each time)
+var _bonus_move_speed_pct: float = 0.0
+var _bonus_max_hp: int = 0
+var _bonus_attack_damage_pct: float = 0.0
+var _bonus_attack_speed_pct: float = 0.0
+var _bonus_pickup_range_pct: float = 0.0
+
+# Flat stats added by upgrades
+var armor: float = 0.0
+var hp_regen: float = 0.0
+var _hp_regen_frac: float = 0.0  # sub-integer accumulator
+
 var current_hp: int
 var is_dead: bool = false
 var is_invincible: bool = false
@@ -28,6 +47,7 @@ var _sprite: Sprite2D
 var _bob_tween: Tween
 var _invincibility_timer: Timer
 var _pickup_area: Area2D
+var _pickup_col: CollisionShape2D
 var _dust_particles: GPUParticles2D
 var _attack_manager: Node
 
@@ -86,11 +106,11 @@ func _setup_pickup_area() -> void:
 	_pickup_area.collision_layer = 0
 	_pickup_area.collision_mask = 8  # Layer 4 (Pickups) = bit 3 = 8
 
-	var col := CollisionShape2D.new()
+	_pickup_col = CollisionShape2D.new()
 	var shape := CircleShape2D.new()
 	shape.radius = pickup_range
-	col.shape = shape
-	_pickup_area.add_child(col)
+	_pickup_col.shape = shape
+	_pickup_area.add_child(_pickup_col)
 
 	_pickup_area.area_entered.connect(_on_pickup_area_entered)
 	add_child(_pickup_area)
@@ -133,6 +153,19 @@ func _setup_attack_manager() -> void:
 	_attack_manager.set_script(preload("res://scenes/attacks/attack_manager.gd"))
 	add_child(_attack_manager)
 
+func _process(delta: float) -> void:
+	if is_dead or hp_regen <= 0.0 or current_hp >= max_hp:
+		return
+	_hp_regen_frac += hp_regen * delta
+	if _hp_regen_frac >= 1.0:
+		var heal := int(_hp_regen_frac)
+		_hp_regen_frac -= heal
+		var old_hp := current_hp
+		current_hp = min(current_hp + heal, max_hp)
+		if current_hp > old_hp:
+			emit_signal("hp_changed", current_hp, max_hp)
+			_spawn_regen_particles()
+
 func _physics_process(_delta: float) -> void:
 	if is_dead:
 		return
@@ -164,7 +197,8 @@ func take_damage(amount: float) -> void:
 	if is_invincible or is_dead:
 		return
 
-	current_hp -= int(amount)
+	var actual: float = maxf(1.0, amount - armor)
+	current_hp -= int(actual)
 	current_hp = max(0, current_hp)
 	emit_signal("hp_changed", current_hp, max_hp)
 
@@ -199,8 +233,6 @@ func add_xp(amount: int) -> void:
 func _do_level_up() -> void:
 	current_level += 1
 	required_xp = int(BASE_XP * float(current_level) * 1.2)
-	attack_damage *= 1.05
-	move_speed = min(move_speed * 1.05, 500.0)
 
 	emit_signal("level_up", current_level)
 	emit_signal("level_changed", current_level)
@@ -208,6 +240,68 @@ func _do_level_up() -> void:
 	var cam := get_tree().get_first_node_in_group("camera")
 	if cam:
 		cam.shake(4.0, 0.3)
+
+func apply_upgrade_stat(upgrade_id: String, val: float) -> void:
+	match upgrade_id:
+		"move_speed":
+			_bonus_move_speed_pct += val
+		"max_hp":
+			_bonus_max_hp += int(val)
+			current_hp += int(val)  # heal for the added max HP
+		"hp_regen":
+			hp_regen += val
+		"attack_damage":
+			_bonus_attack_damage_pct += val
+		"attack_speed":
+			_bonus_attack_speed_pct += val
+		"pickup_range":
+			_bonus_pickup_range_pct += val
+		"armor":
+			armor += val
+	recalculate_stats()
+
+func recalculate_stats() -> void:
+	move_speed = min(base_move_speed * (1.0 + _bonus_move_speed_pct / 100.0), 500.0)
+	max_hp = base_max_hp + _bonus_max_hp
+	current_hp = min(current_hp, max_hp)
+	attack_damage = base_attack_damage * (1.0 + _bonus_attack_damage_pct / 100.0)
+	attack_speed = base_attack_speed * (1.0 + _bonus_attack_speed_pct / 100.0)
+	pickup_range = base_pickup_range * (1.0 + _bonus_pickup_range_pct / 100.0)
+	if _pickup_col and _pickup_col.shape is CircleShape2D:
+		(_pickup_col.shape as CircleShape2D).radius = pickup_range
+	emit_signal("hp_changed", current_hp, max_hp)
+
+func _spawn_regen_particles() -> void:
+	var effects := get_tree().get_first_node_in_group("effects_container")
+	if not effects:
+		return
+	var sparks := GPUParticles2D.new()
+	sparks.global_position = global_position
+	sparks.amount = 5
+	sparks.lifetime = 0.5
+	sparks.one_shot = true
+	sparks.explosiveness = 0.9
+	sparks.emitting = true
+	var mat := ParticleProcessMaterial.new()
+	mat.direction = Vector3(0, -1, 0)
+	mat.spread = 50.0
+	mat.initial_velocity_min = 12.0
+	mat.initial_velocity_max = 28.0
+	mat.gravity = Vector3(0, 30, 0)
+	mat.scale_min = 1.5
+	mat.scale_max = 2.5
+	mat.color = Color(0.2, 1.0, 0.35)
+	var img := Image.create(2, 2, false, Image.FORMAT_RGBA8)
+	img.fill(Color.WHITE)
+	sparks.texture = ImageTexture.create_from_image(img)
+	sparks.process_material = mat
+	effects.add_child(sparks)
+	var cleanup := Timer.new()
+	cleanup.wait_time = 1.0
+	cleanup.one_shot = true
+	cleanup.timeout.connect(sparks.queue_free)
+	sparks.add_child(cleanup)
+	cleanup.start()
 
 func _die() -> void:
 	is_dead = true
