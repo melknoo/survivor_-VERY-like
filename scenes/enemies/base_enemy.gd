@@ -16,7 +16,7 @@ var current_hp: float
 var _is_dead: bool = false
 
 var _sprite: AnimatedSprite2D
-var _health_bar: ProgressBar
+var _health_bar_fill: ColorRect
 var _health_bar_container: Node2D
 var _contact_area: Area2D
 var _damage_cooldown: Timer
@@ -119,30 +119,21 @@ func _setup_contact_area() -> void:
 
 func _setup_health_bar() -> void:
 	_health_bar_container = Node2D.new()
-	_health_bar_container.position = Vector2(-16, -24)
+	_health_bar_container.position = Vector2(-16, -20)
 	_health_bar_container.visible = false
 
-	_health_bar = ProgressBar.new()
-	_health_bar.min_value = 0.0
-	_health_bar.max_value = max_hp
-	_health_bar.value = max_hp
-	_health_bar.size = Vector2(32, 4)
-	_health_bar.show_percentage = false
+	# Background
+	var bg := ColorRect.new()
+	bg.color = Color(0.12, 0.12, 0.12)
+	bg.size = Vector2(32, 2)
+	_health_bar_container.add_child(bg)
 
-	# Style the health bar
-	var style_fg := StyleBoxFlat.new()
-	style_fg.bg_color = Color(0.9, 0.15, 0.1)
-	style_fg.corner_radius_top_left = 2
-	style_fg.corner_radius_top_right = 2
-	style_fg.corner_radius_bottom_left = 2
-	style_fg.corner_radius_bottom_right = 2
-	_health_bar.add_theme_stylebox_override("fill", style_fg)
+	# Fill
+	_health_bar_fill = ColorRect.new()
+	_health_bar_fill.color = Color(0.9, 0.15, 0.1)
+	_health_bar_fill.size = Vector2(32, 2)
+	_health_bar_container.add_child(_health_bar_fill)
 
-	var style_bg := StyleBoxFlat.new()
-	style_bg.bg_color = Color(0.15, 0.15, 0.15)
-	_health_bar.add_theme_stylebox_override("background", style_bg)
-
-	_health_bar_container.add_child(_health_bar)
 	add_child(_health_bar_container)
 
 func _setup_timers() -> void:
@@ -185,7 +176,7 @@ func take_damage(amount: float) -> void:
 	# Show health bar with tween
 	_health_bar_container.visible = true
 	var tween := create_tween()
-	tween.tween_property(_health_bar, "value", current_hp, 0.15)
+	tween.tween_property(_health_bar_fill, "size:x", 32.0 * (current_hp / max_hp), 0.15)
 
 	# Hit flash
 	_trigger_hit_flash()

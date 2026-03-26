@@ -14,7 +14,7 @@ func _ready() -> void:
 	collision_mask = 0
 
 	_setup_sprite()
-	_setup_collision()
+	call_deferred("_setup_collision")
 
 	# Check if already in pickup range on spawn
 	call_deferred("_check_initial_attraction")
