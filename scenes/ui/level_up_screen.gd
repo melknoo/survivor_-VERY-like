@@ -155,10 +155,14 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 
 	# Description
 	var cur_lvl: int = _upgrade_manager.get_upgrade_level(upg["id"])
-	var val: float = float(upg["values"][cur_lvl])
-	var val_str: String = "%.1f" % val if val != float(int(val)) else str(int(val))
 	var dl := Label.new()
-	dl.text = upg["description"] % val_str
+	var desc: String = upg["description"]
+	if "%s" in desc:
+		var val: float = float(upg["values"][cur_lvl])
+		var val_str: String = "%.1f" % val if val != float(int(val)) else str(int(val))
+		dl.text = desc % val_str
+	else:
+		dl.text = desc
 	dl.size = Vector2(CARD_W - 24.0, 72.0)
 	dl.position = Vector2(12.0, 152.0)
 	dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

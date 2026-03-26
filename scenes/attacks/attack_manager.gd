@@ -1,64 +1,38 @@
 extends Node
 
-const PROJECTILE_SCENE := preload("res://scenes/attacks/projectile.tscn")
-const ATTACK_RANGE := 600.0
+const WEAPON_SCRIPTS: Dictionary = {
+	"weapon_knives":    "res://scenes/attacks/weapons/knives_weapon.gd",
+	"weapon_garlic":    "res://scenes/attacks/weapons/garlic_weapon.gd",
+	"weapon_orbiter":   "res://scenes/attacks/weapons/orbiter_weapon.gd",
+	"weapon_lightning": "res://scenes/attacks/weapons/lightning_weapon.gd",
+}
 
-var fire_timer: Timer
-var player: Node2D = null  # Parent CharacterBody2D with player.gd script
+var _weapons: Dictionary = {}  # weapon_id -> BaseWeapon node
 
 func _ready() -> void:
-	player = get_parent()
+	# Knives is the default starting weapon
+	add_or_upgrade_weapon("weapon_knives")
 
-	fire_timer = Timer.new()
-	fire_timer.timeout.connect(_on_fire_timer)
-	add_child(fire_timer)
-	_update_fire_rate()
-	fire_timer.start()
-
-func _update_fire_rate() -> void:
-	if player:
-		fire_timer.wait_time = 1.0 / player.attack_speed
+func add_or_upgrade_weapon(weapon_id: String) -> void:
+	if _weapons.has(weapon_id):
+		_weapons[weapon_id].upgrade()
 	else:
-		fire_timer.wait_time = 1.0
+		_add_weapon(weapon_id)
 
-func _on_fire_timer() -> void:
-	if not player or player.is_dead:
+func _add_weapon(weapon_id: String) -> void:
+	if not WEAPON_SCRIPTS.has(weapon_id):
+		push_warning("Unknown weapon_id: " + weapon_id)
 		return
+	var weapon := Node.new()
+	weapon.set_script(load(WEAPON_SCRIPTS[weapon_id]))
+	weapon.name = weapon_id
+	add_child(weapon)
+	_weapons[weapon_id] = weapon
 
-	# Update fire rate in case attack_speed changed
-	_update_fire_rate()
+func has_weapon(weapon_id: String) -> bool:
+	return _weapons.has(weapon_id)
 
-	var target := _find_nearest_enemy()
-	if not target:
-		return
-
-	_fire_at(target)
-
-func _find_nearest_enemy() -> Node2D:
-	if not player:
-		return null
-
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	var nearest: Node2D = null
-	var nearest_dist_sq := ATTACK_RANGE * ATTACK_RANGE
-
-	for enemy in enemies:
-		if not is_instance_valid(enemy):
-			continue
-		var dist_sq := player.global_position.distance_squared_to(enemy.global_position)
-		if dist_sq < nearest_dist_sq:
-			nearest_dist_sq = dist_sq
-			nearest = enemy
-
-	return nearest
-
-func _fire_at(target: Node2D) -> void:
-	var container := get_tree().get_first_node_in_group("projectile_container")
-	if not container:
-		return
-
-	var projectile := PROJECTILE_SCENE.instantiate()
-	var direction := (target.global_position - player.global_position).normalized()
-	projectile.global_position = player.global_position
-	projectile.setup(direction, player.attack_damage)
-	container.add_child(projectile)
+func get_weapon_level(weapon_id: String) -> int:
+	if _weapons.has(weapon_id):
+		return _weapons[weapon_id].current_level
+	return 0

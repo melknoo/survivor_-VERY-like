@@ -242,6 +242,11 @@ func _do_level_up() -> void:
 		cam.shake(4.0, 0.3)
 
 func apply_upgrade_stat(upgrade_id: String, val: float) -> void:
+	# Route weapon upgrades to the attack manager
+	if upgrade_id.begins_with("weapon_"):
+		if _attack_manager and _attack_manager.has_method("add_or_upgrade_weapon"):
+			_attack_manager.add_or_upgrade_weapon(upgrade_id)
+		return
 	match upgrade_id:
 		"move_speed":
 			_bonus_move_speed_pct += val

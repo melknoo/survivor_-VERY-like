@@ -15,13 +15,46 @@ Ein Vampire-Survivors-artiges 2D-Spiel mit Pixel-Art-Ästhetik im Stil von Balat
 scenes/           # Alle .tscn Szenen-Dateien
   player/         # Spieler-Szene und Skript
   enemies/        # Gegner-Szenen und Skripte
-  attacks/        # Projektile, Attack-Manager
+  attacks/        # Projektile, Attack-Manager, Waffen
+    base_weapon.gd          # Basis-Klasse für alle Waffen (extends Node)
+    attack_manager.gd       # Verwaltet aktive Waffen-Nodes
+    weapons/
+      knives_weapon.gd      # Projektil-Waffe mit Fächer
+      garlic_weapon.gd      # Aura-Waffe mit Knockback
+      orbiter_weapon.gd     # Kreisende Kugeln
+      lightning_weapon.gd   # Blitz mit Chain Lightning
   pickups/        # XP-Gems etc.
   effects/        # Partikel, Damage Numbers, Shader
-  ui/             # HUD, Game Over, Menüs
+  ui/             # HUD, Game Over, Menüs, Level-Up-Screen, Stats-Screen
 scripts/          # Standalone-Skripte (Spawner, WorldGen, Camera)
+  upgrade_database.gd  # Alle Upgrades + Waffen (type: "passive" | "weapon")
+  upgrade_manager.gd   # Weighted random selection, apply logic
 assets/           # Sprites, Tilesets, Fonts, Audio – VOR Implementierung analysieren
 ```
+
+## Waffen-System
+
+### Architektur
+- `BaseWeapon` (extends Node) — Basis-Klasse: Timer, `activate()`, `upgrade()`, `get_effective_damage()`
+- `AttackManager` (extends Node, Child des Spielers) — hält alle aktiven Waffen als Children
+- Waffen werden via `add_or_upgrade_weapon(weapon_id)` hinzugefügt/geupgraded
+- Waffen-Damage skaliert mit `player.attack_damage / player.base_attack_damage`
+- Waffen-Cooldown skaliert mit `player.attack_speed`
+
+### Implementierte Waffen
+| ID | Name | Mechanik |
+|----|------|---------|
+| `weapon_knives` | Klingen | Projektil(e) auf nächsten Gegner, Fächer bei Lv3+ |
+| `weapon_garlic` | Knoblauch-Aura | Pulse-Aura, trifft alle Gegner im Radius + Knockback |
+| `weapon_orbiter` | Heiliger Orbiter | Area2D-Kugeln kreisen um Spieler, Collision-Damage |
+| `weapon_lightning` | Kettenblitz | Blitz auf zufälligen Gegner, Chain ab Lv3 |
+
+### Upgrade-Integration
+- `upgrade_database.gd`: Einträge haben `"type": "passive"` oder `"type": "weapon"`
+- Waffen ohne `%s` in `description` werden direkt angezeigt (level_up_screen unterstützt beide)
+- Waffen erscheinen im Level-Up-Screen: neu = `"✦ NEU ✦"`, vorhanden = `"Lv. X → Y"`
+- `upgrade_manager._levels["weapon_knives"] = 1` beim Start (Standardwaffe)
+- Selection-Regeln: max. 1 neue Waffe, mind. 1 Passiv-Option
 
 ## Coding-Konventionen
 
@@ -69,9 +102,9 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 - Chunks entfernen die zu weit vom Spieler entfernt sind
 
 ## Aktueller Stand
-- [ ] Grundgerüst: Welt, Spieler, Gegner, Auto-Attack, XP, HUD, Game Over
-- [ ] Visual Polish: Partikel, Screenshake, Damage Numbers, Shader
-- [ ] Item/Upgrade-System
+- [x] Grundgerüst: Welt, Spieler, Gegner, Auto-Attack, XP, HUD, Game Over
+- [x] Visual Polish: Partikel, Screenshake, Damage Numbers, Shader
+- [x] Item/Upgrade-System (passive Upgrades + Level-Up-Screen)
+- [x] Waffen-System: Knives, Garlic, Orbiter, Lightning
 - [ ] Verschiedene Gegnertypen
-- [ ] Verschiedene Waffen
 - [ ] Hauptmenü

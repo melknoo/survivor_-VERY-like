@@ -14,6 +14,7 @@ const DAMAGE_NUMBER_SCENE := preload("res://scenes/effects/damage_number.tscn")
 
 var current_hp: float
 var _is_dead: bool = false
+var _knockback: Vector2 = Vector2.ZERO
 
 var _sprite: AnimatedSprite2D
 var _health_bar_fill: ColorRect
@@ -148,7 +149,7 @@ func _setup_timers() -> void:
 	_hit_flash_timer.timeout.connect(_on_hit_flash_end)
 	add_child(_hit_flash_timer)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _is_dead:
 		return
 
@@ -158,13 +159,17 @@ func _physics_process(_delta: float) -> void:
 
 	var player := players[0] as Node2D
 	var dir := (player.global_position - global_position).normalized()
-	velocity = dir * move_speed
+	velocity = dir * move_speed + _knockback
+	_knockback = _knockback.move_toward(Vector2.ZERO, delta * 420.0)
 
 	# Flip sprite based on movement direction
 	if dir.x != 0.0:
 		_sprite.flip_h = dir.x < 0.0
 
 	move_and_slide()
+
+func apply_knockback(direction: Vector2, force: float) -> void:
+	_knockback = direction * force
 
 func take_damage(amount: float) -> void:
 	if _is_dead:
