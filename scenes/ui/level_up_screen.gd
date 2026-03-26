@@ -3,7 +3,7 @@ extends CanvasLayer
 signal upgrade_chosen(upgrade_id: String)
 
 const CARD_W := 210
-const CARD_H := 290
+const CARD_H := 310
 const CARD_GAP := 32
 
 const TEX_CARD   := "res://assets/UI/Banners/Carved_9Slides.png"
@@ -86,6 +86,7 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 	card.size = Vector2(CARD_W, CARD_H)
 	card.position = Vector2(x, y)
 	card.pivot_offset = Vector2(CARD_W * 0.5, CARD_H * 0.5)
+	card.custom_minimum_size = Vector2(CARD_W, CARD_H)
 	card.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	# Parchment / stone NinePatchRect background
@@ -95,12 +96,12 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 	bg.patch_margin_right = 40
 	bg.patch_margin_top = 40
 	bg.patch_margin_bottom = 40
-	bg.size = Vector2(CARD_W, CARD_H)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(bg)
 
-	# Rarity color strip at bottom
+	# Rarity color strip at bottom (absolute – stays outside container)
 	var rc := _rarity_color(upg["rarity"])
 	var strip := ColorRect.new()
 	strip.color = rc
@@ -109,7 +110,22 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 	strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(strip)
 
-	# Icon (64x64 from items.png sprite sheet)
+	# MarginContainer fills the card and gives children their width
+	var margin := MarginContainer.new()
+	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 16)
+	margin.add_theme_constant_override("margin_right", 16)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_bottom", 14)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(margin)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 6)
+	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.add_child(vbox)
+
+	# Icon
 	var atlas_tex := AtlasTexture.new()
 	atlas_tex.atlas = load(TEX_ITEMS)
 	atlas_tex.region = upg["icon_region"]
@@ -118,40 +134,41 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.size = Vector2(64.0, 64.0)
-	icon.position = Vector2((CARD_W - 64.0) * 0.5, 22.0)
+	icon.custom_minimum_size = Vector2(64.0, 64.0)
+	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(icon)
+	vbox.add_child(icon)
 
 	# Upgrade name
 	var nl := Label.new()
 	nl.text = upg["name"]
-	nl.size = Vector2(CARD_W - 16.0, 28.0)
-	nl.position = Vector2(8.0, 96.0)
 	nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	nl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	nl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	nl.add_theme_font_size_override("font_size", 15)
 	nl.add_theme_color_override("font_color", Color(0.15, 0.06, 0.01))
 	nl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(nl)
+	vbox.add_child(nl)
 
 	# Rarity text
 	var rl := Label.new()
 	rl.text = _rarity_text(upg["rarity"])
-	rl.size = Vector2(CARD_W - 16.0, 18.0)
-	rl.position = Vector2(8.0, 120.0)
 	rl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	rl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	rl.add_theme_font_size_override("font_size", 10)
 	rl.add_theme_color_override("font_color", rc.darkened(0.15))
 	rl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(rl)
+	vbox.add_child(rl)
 
 	# Divider line
 	var div := ColorRect.new()
 	div.color = Color(0.35, 0.22, 0.1, 0.5)
-	div.size = Vector2(CARD_W - 32.0, 1.0)
-	div.position = Vector2(16.0, 143.0)
+	div.custom_minimum_size = Vector2(0.0, 1.0)
+	div.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	div.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(div)
+	vbox.add_child(div)
 
 	# Description
 	var cur_lvl: int = _upgrade_manager.get_upgrade_level(upg["id"])
@@ -163,26 +180,32 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 		dl.text = desc % val_str
 	else:
 		dl.text = desc
-	dl.size = Vector2(CARD_W - 24.0, 72.0)
-	dl.position = Vector2(12.0, 152.0)
 	dl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	dl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	dl.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	dl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dl.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dl.add_theme_font_size_override("font_size", 13)
 	dl.add_theme_color_override("font_color", Color(0.25, 0.15, 0.05))
 	dl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(dl)
+	vbox.add_child(dl)
+
+	# Spacer pushes level label to bottom
+	var spacer := Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vbox.add_child(spacer)
 
 	# Level indicator
 	var ll := Label.new()
 	ll.text = "✦ NEU ✦" if cur_lvl == 0 else "Lv. %d  →  %d" % [cur_lvl, cur_lvl + 1]
-	ll.size = Vector2(CARD_W - 16.0, 24.0)
-	ll.position = Vector2(8.0, CARD_H - 44.0)
 	ll.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ll.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	ll.add_theme_font_size_override("font_size", 13)
 	ll.add_theme_color_override("font_color", Color(0.1, 0.4, 0.1))
 	ll.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(ll)
+	vbox.add_child(ll)
 
 	# Hover and click
 	card.mouse_entered.connect(_on_hover_enter.bind(card))

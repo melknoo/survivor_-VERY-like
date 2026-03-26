@@ -106,7 +106,23 @@ func _make_orbiter() -> Area2D:
 	orb.add_child(trail)
 
 	orb.body_entered.connect(_on_orbiter_body_entered.bind(orb))
-	add_child(orb)
+
+	# Add to scene-level container so global_position isn't affected by player transform
+	var container := get_tree().get_first_node_in_group("effects_container")
+	if container:
+		container.add_child(orb)
+	else:
+		get_tree().current_scene.add_child(orb)
+
+	# Place immediately at correct position to avoid one-frame spawn at Vector2.ZERO
+	if is_instance_valid(_player):
+		var count := _orbiters.size()
+		var angle_offset := TAU / (count + 1) * count
+		var stats := _get_stats_for_level(current_level)
+		orb.global_position = _player.global_position + Vector2(
+			cos(_angle + angle_offset), sin(_angle + angle_offset)
+		) * float(stats["radius"])
+
 	return orb
 
 func _on_orbiter_body_entered(body: Node2D, _orb: Area2D) -> void:

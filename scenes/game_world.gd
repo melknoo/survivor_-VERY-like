@@ -151,8 +151,8 @@ func _on_player_died() -> void:
 	get_tree().paused = false
 
 	var go := GAME_OVER_SCENE.instantiate()
-	go.setup(game_time, kill_count, _player.current_level if _player else 1)
 	add_child(go)
+	go.setup(game_time, kill_count, _player.current_level if _player else 1)
 
 func _on_level_up(_new_level: int) -> void:
 	# Full-screen flash
