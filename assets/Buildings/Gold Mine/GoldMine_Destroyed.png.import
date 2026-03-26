@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmvcmdr8ty3xa"
-path="res://.godot/imported/W_Idle.png-15f80060c6d4c5ff7e5075e52dc44511.ctex"
+uid="uid://b2a5ln22yx5ot"
+path="res://.godot/imported/GoldMine_Destroyed.png-7246603d4b6b3a01aec1b4c16f3e9ac6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Resources/W_Idle.png"
-dest_files=["res://.godot/imported/W_Idle.png-15f80060c6d4c5ff7e5075e52dc44511.ctex"]
+source_file="res://assets/Buildings/Gold Mine/GoldMine_Destroyed.png"
+dest_files=["res://.godot/imported/GoldMine_Destroyed.png-7246603d4b6b3a01aec1b4c16f3e9ac6.ctex"]
 
 [params]
 

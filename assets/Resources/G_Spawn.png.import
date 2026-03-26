@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxvvg2nl5v7e2"
-path="res://.godot/imported/GoldMine_Inactive.png-6d8acda28d2d1e3fad78a45da1cf764f.ctex"
+uid="uid://8om6ir8pjr7l"
+path="res://.godot/imported/G_Spawn.png-ff5343226758cf2a1bb5588e02cd4a0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Gold Mine/GoldMine_Inactive.png"
-dest_files=["res://.godot/imported/GoldMine_Inactive.png-6d8acda28d2d1e3fad78a45da1cf764f.ctex"]
+source_file="res://assets/Resources/G_Spawn.png"
+dest_files=["res://.godot/imported/G_Spawn.png-ff5343226758cf2a1bb5588e02cd4a0f.ctex"]
 
 [params]
 

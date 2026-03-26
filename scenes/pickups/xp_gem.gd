@@ -22,25 +22,11 @@ func _ready() -> void:
 func _setup_sprite() -> void:
 	_sprite = Sprite2D.new()
 
-	if ResourceLoader.exists("res://assets/loot_common.png"):
-		_sprite.texture = load("res://assets/loot_common.png")
-	else:
-		# Placeholder glowing gem
-		# TODO: Replace placeholder
-		var img := Image.create(10, 10, false, Image.FORMAT_RGBA8)
-		for x in range(10):
-			for y in range(10):
-				var dx := x - 4.5
-				var dy := y - 4.5
-				var dist := sqrt(dx * dx + dy * dy)
-				if dist <= 4.5:
-					var alpha := 1.0 - (dist / 4.5) * 0.4
-					img.set_pixel(x, y, Color(0.1, 0.9, 0.3, alpha))
-		_sprite.texture = ImageTexture.create_from_image(img)
-
-	_glow = CanvasItemMaterial.new()
-	_glow.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-	_sprite.material = _glow
+	var atlas := AtlasTexture.new()
+	atlas.atlas = load("res://assets/items/Full Spritesheets/pixelquest16-july-2025-cave.png")
+	atlas.region = Rect2(32, 16, 16, 16)  # Row 2, Col 3 — green gem
+	_sprite.texture = atlas
+	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 	add_child(_sprite)
 

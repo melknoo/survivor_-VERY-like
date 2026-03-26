@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coxbhudl1uhni"
-path="res://.godot/imported/Tree.png-9d55d9ef624d0e412e16a47a080fc706.ctex"
+uid="uid://cxvvg2nl5v7e2"
+path="res://.godot/imported/GoldMine_Inactive.png-c02df8b1e356751f4eef224e496865fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Trees/Tree.png"
-dest_files=["res://.godot/imported/Tree.png-9d55d9ef624d0e412e16a47a080fc706.ctex"]
+source_file="res://assets/Buildings/Gold Mine/GoldMine_Inactive.png"
+dest_files=["res://.godot/imported/GoldMine_Inactive.png-c02df8b1e356751f4eef224e496865fd.ctex"]
 
 [params]
 

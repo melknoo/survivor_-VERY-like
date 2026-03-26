@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bioj7jptk71ja"
-path="res://.godot/imported/HappySheep_Bouncing.png-7e54bbfb3582c2da3b44d00529d6d146.ctex"
+uid="uid://di1yn011nke0o"
+path="res://.godot/imported/M_Idle.png-4ae113a06043aa16fa381304804751d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Sheep/HappySheep_Bouncing.png"
-dest_files=["res://.godot/imported/HappySheep_Bouncing.png-7e54bbfb3582c2da3b44d00529d6d146.ctex"]
+source_file="res://assets/Resources/M_Idle.png"
+dest_files=["res://.godot/imported/M_Idle.png-4ae113a06043aa16fa381304804751d0.ctex"]
 
 [params]
 

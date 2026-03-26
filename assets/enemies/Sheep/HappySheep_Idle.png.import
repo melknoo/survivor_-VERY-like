@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d20tdtlmuvuo3"
-path="res://.godot/imported/W_Spawn.png-60c010a74d8cf516464e062d4ea228ff.ctex"
+uid="uid://bitxedju3ipi1"
+path="res://.godot/imported/HappySheep_Idle.png-b29f52b9e7061a5525f725d6031c70ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Resources/W_Spawn.png"
-dest_files=["res://.godot/imported/W_Spawn.png-60c010a74d8cf516464e062d4ea228ff.ctex"]
+source_file="res://assets/enemies/Sheep/HappySheep_Idle.png"
+dest_files=["res://.godot/imported/HappySheep_Idle.png-b29f52b9e7061a5525f725d6031c70ab.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuq3y7svm6flm"
-path="res://.godot/imported/HappySheep_All.png-405c13a7aa0b207b091c3283aa128b94.ctex"
+uid="uid://byeh8vxk3fed3"
+path="res://.godot/imported/M_Spawn.png-b6d8b9a7e99169874bd1c92b0832c99d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Sheep/HappySheep_All.png"
-dest_files=["res://.godot/imported/HappySheep_All.png-405c13a7aa0b207b091c3283aa128b94.ctex"]
+source_file="res://assets/Resources/M_Spawn.png"
+dest_files=["res://.godot/imported/M_Spawn.png-b6d8b9a7e99169874bd1c92b0832c99d.ctex"]
 
 [params]
 

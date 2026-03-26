@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsnhqyqlg77t5"
-path="res://.godot/imported/M_Idle_(NoShadow).png-99d3d8e0fa9c3f8444c9e5c5feb96ea7.ctex"
+uid="uid://cuq3y7svm6flm"
+path="res://.godot/imported/HappySheep_All.png-b2e81b98c0006123909b395aeb462d54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Resources/M_Idle_(NoShadow).png"
-dest_files=["res://.godot/imported/M_Idle_(NoShadow).png-99d3d8e0fa9c3f8444c9e5c5feb96ea7.ctex"]
+source_file="res://assets/enemies/Sheep/HappySheep_All.png"
+dest_files=["res://.godot/imported/HappySheep_All.png-b2e81b98c0006123909b395aeb462d54.ctex"]
 
 [params]
 

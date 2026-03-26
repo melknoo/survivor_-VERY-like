@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8om6ir8pjr7l"
-path="res://.godot/imported/G_Spawn.png-d6d10600b75e1fea08938202dc7c2b40.ctex"
+uid="uid://cmvcmdr8ty3xa"
+path="res://.godot/imported/W_Idle.png-dbafcc6ae0bbe8d15701d1c0d2cd45e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Resources/G_Spawn.png"
-dest_files=["res://.godot/imported/G_Spawn.png-d6d10600b75e1fea08938202dc7c2b40.ctex"]
+source_file="res://assets/Resources/W_Idle.png"
+dest_files=["res://.godot/imported/W_Idle.png-dbafcc6ae0bbe8d15701d1c0d2cd45e4.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i43gny421wy2"
-path="res://.godot/imported/GoldMine_Active.png-0599acce931a2b4eaac5645a9fedee57.ctex"
+uid="uid://dsnhqyqlg77t5"
+path="res://.godot/imported/M_Idle_(NoShadow).png-7c4fe79eb8f2c0db3c5b6cc96de01001.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Gold Mine/GoldMine_Active.png"
-dest_files=["res://.godot/imported/GoldMine_Active.png-0599acce931a2b4eaac5645a9fedee57.ctex"]
+source_file="res://assets/Resources/M_Idle_(NoShadow).png"
+dest_files=["res://.godot/imported/M_Idle_(NoShadow).png-7c4fe79eb8f2c0db3c5b6cc96de01001.ctex"]
 
 [params]
 
