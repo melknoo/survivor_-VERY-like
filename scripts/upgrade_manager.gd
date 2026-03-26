@@ -68,6 +68,9 @@ func apply_upgrade(upgrade_id: String, player: Node) -> void:
 	if player.has_method("apply_upgrade_stat"):
 		player.apply_upgrade_stat(upgrade_id, val)
 
+func get_all_upgrades() -> Array:
+	return _db
+
 func _get_upgrade(id: String) -> Dictionary:
 	for upg in _db:
 		if upg["id"] == id:

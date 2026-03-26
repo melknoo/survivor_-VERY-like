@@ -4,6 +4,7 @@ const PLAYER_SCENE := preload("res://scenes/player/player.tscn")
 const HUD_SCENE := preload("res://scenes/ui/hud.tscn")
 const GAME_OVER_SCENE := preload("res://scenes/ui/game_over.tscn")
 const LEVEL_UP_SCREEN_SCRIPT := preload("res://scenes/ui/level_up_screen.gd")
+const STATS_SCREEN_SCRIPT    := preload("res://scenes/ui/stats_screen.gd")
 
 var kill_count: int = 0
 var game_time: float = 0.0
@@ -15,6 +16,7 @@ var _world_gen: Node2D
 var _upgrade_manager: Node
 var _level_up_queue: Array = []
 var _level_up_screen_open: bool = false
+var _stats_screen_open: bool = false
 
 func _ready() -> void:
 	add_to_group("game_world")
@@ -114,6 +116,24 @@ func _process(delta: float) -> void:
 
 	if _world_gen and _player:
 		_world_gen.update_chunks(_player.global_position)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("open_stats") and not is_game_over \
+			and not _level_up_screen_open and not _stats_screen_open:
+		_open_stats_screen()
+
+func _open_stats_screen() -> void:
+	_stats_screen_open = true
+	get_tree().paused = true
+	var screen := CanvasLayer.new()
+	screen.set_script(STATS_SCREEN_SCRIPT)
+	add_child(screen)
+	screen.setup(_player, _upgrade_manager)
+	screen.closed.connect(_on_stats_closed)
+
+func _on_stats_closed() -> void:
+	get_tree().paused = false
+	_stats_screen_open = false
 
 func increment_kill_count() -> void:
 	kill_count += 1
