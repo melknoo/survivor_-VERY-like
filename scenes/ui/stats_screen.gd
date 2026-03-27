@@ -186,7 +186,7 @@ func _add_upgrade_row(upg_name: String, level: int, max_lvl: int, x: float, y: f
 	var lbl := Label.new()
 	lbl.text = upg_name
 	lbl.position = Vector2(x, y)
-	lbl.size = Vector2(290.0, 30.0)
+	lbl.size = Vector2(200.0, 30.0)
 	lbl.add_theme_font_size_override("font_size", 16)
 	lbl.add_theme_color_override("font_color", Color(0.2, 0.1, 0.03))
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -196,7 +196,7 @@ func _add_upgrade_row(upg_name: String, level: int, max_lvl: int, x: float, y: f
 	for j in range(max_lvl):
 		var pip := ColorRect.new()
 		pip.size = Vector2(14.0, 14.0)
-		pip.position = Vector2(x + 295.0 + j * 17.0, y + 8.0)
+		pip.position = Vector2(x + 205.0 + j * 17.0, y + 8.0)
 		pip.color = Color(0.1, 0.55, 0.2) if j < level else Color(0.28, 0.23, 0.16)
 		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_container.add_child(pip)

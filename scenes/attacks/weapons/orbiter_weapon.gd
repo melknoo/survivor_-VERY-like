@@ -1,14 +1,14 @@
 extends BaseWeapon
 
 const LEVEL_STATS: Array = [
-	{"count": 1, "radius":  70.0, "damage": 12.0, "speed": 1.5},
-	{"count": 1, "radius":  75.0, "damage": 15.0, "speed": 1.7},
-	{"count": 2, "radius":  80.0, "damage": 15.0, "speed": 1.9},
-	{"count": 2, "radius":  85.0, "damage": 18.0, "speed": 2.1},
-	{"count": 3, "radius":  90.0, "damage": 20.0, "speed": 2.3},
-	{"count": 3, "radius":  95.0, "damage": 24.0, "speed": 2.5},
-	{"count": 4, "radius": 100.0, "damage": 28.0, "speed": 2.7},
-	{"count": 5, "radius": 110.0, "damage": 35.0, "speed": 3.0},
+	{"count": 1, "radius":  70.0, "damage": 12.0, "speed": 2.2},
+	{"count": 1, "radius":  75.0, "damage": 15.0, "speed": 2.5},
+	{"count": 2, "radius":  80.0, "damage": 15.0, "speed": 2.8},
+	{"count": 2, "radius":  85.0, "damage": 18.0, "speed": 3.1},
+	{"count": 3, "radius":  90.0, "damage": 20.0, "speed": 3.4},
+	{"count": 3, "radius":  95.0, "damage": 24.0, "speed": 3.7},
+	{"count": 4, "radius": 100.0, "damage": 28.0, "speed": 4.0},
+	{"count": 5, "radius": 110.0, "damage": 35.0, "speed": 4.5},
 ]
 
 const HIT_COOLDOWN := 0.5  # seconds per enemy before re-hit
@@ -33,7 +33,7 @@ func _get_stats_for_level(level: int) -> Dictionary:
 func _on_level_changed() -> void:
 	_rebuild_orbiters()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if not is_instance_valid(_player):
 		return
 	var stats := _get_stats_for_level(current_level)
@@ -42,11 +42,11 @@ func _physics_process(delta: float) -> void:
 	if count == 0:
 		return
 	for i in range(count):
-		var offset_angle := _angle + TAU / count * i
 		var orbiter := _orbiters[i] as Area2D
-		if is_instance_valid(orbiter):
-			orbiter.global_position = _player.global_position + \
-				Vector2(cos(offset_angle), sin(offset_angle)) * float(stats["radius"])
+		if not is_instance_valid(orbiter):
+			continue
+		var offset_angle := _angle + TAU / count * i
+		orbiter.position = Vector2(cos(offset_angle), sin(offset_angle)) * float(stats["radius"])
 
 func _rebuild_orbiters() -> void:
 	for o in _orbiters:
@@ -107,21 +107,14 @@ func _make_orbiter() -> Area2D:
 
 	orb.body_entered.connect(_on_orbiter_body_entered.bind(orb))
 
-	# Add to scene-level container so global_position isn't affected by player transform
-	var container := get_tree().get_first_node_in_group("effects_container")
-	if container:
-		container.add_child(orb)
-	else:
-		get_tree().current_scene.add_child(orb)
+	# Direct child of player — position is in player's local space, zero-lag follow
+	_player.add_child(orb)
 
-	# Place immediately at correct position to avoid one-frame spawn at Vector2.ZERO
-	if is_instance_valid(_player):
-		var count := _orbiters.size()
-		var angle_offset := TAU / (count + 1) * count
-		var stats := _get_stats_for_level(current_level)
-		orb.global_position = _player.global_position + Vector2(
-			cos(_angle + angle_offset), sin(_angle + angle_offset)
-		) * float(stats["radius"])
+	# Set initial local position immediately so it doesn't spawn at player origin for one frame
+	var count := _orbiters.size()
+	var angle_offset := TAU / (count + 1) * count
+	var stats := _get_stats_for_level(current_level)
+	orb.position = Vector2(cos(_angle + angle_offset), sin(_angle + angle_offset)) * float(stats["radius"])
 
 	return orb
 

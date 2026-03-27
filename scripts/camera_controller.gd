@@ -1,6 +1,5 @@
 extends Camera2D
 
-var target_position: Vector2 = Vector2.ZERO
 var shake_intensity: float = 0.0
 var shake_duration: float = 0.0
 var shake_timer: float = 0.0
@@ -11,20 +10,15 @@ func _ready() -> void:
 	rng.randomize()
 
 func _process(delta: float) -> void:
-	# Follow player
-	var players := get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		target_position = (players[0] as Node2D).global_position
-
-	position = target_position
-
-	# Screenshake
+	# Camera is a child of the player — position (0,0) = always centered on player
+	# Screenshake only
 	if shake_timer > 0.0:
 		shake_timer -= delta
 		var t := shake_timer / shake_duration
-		var offset_x := rng.randf_range(-shake_intensity, shake_intensity) * t
-		var offset_y := rng.randf_range(-shake_intensity, shake_intensity) * t
-		offset = Vector2(offset_x, offset_y)
+		offset = Vector2(
+			rng.randf_range(-shake_intensity, shake_intensity) * t,
+			rng.randf_range(-shake_intensity, shake_intensity) * t
+		)
 	else:
 		offset = Vector2.ZERO
 

@@ -6,7 +6,7 @@ signal hp_changed(current_hp: int, max_hp: int)
 signal xp_changed(current_xp: int, required_xp: int)
 signal level_changed(new_level: int)
 
-@export var move_speed: float = 200.0
+@export var move_speed: float = 100.0
 @export var max_hp: int = 100
 @export var attack_damage: float = 10.0
 @export var attack_speed: float = 1.0
@@ -180,7 +180,7 @@ func _physics_process(_delta: float) -> void:
 		velocity = dir * move_speed
 		_dust_particles.emitting = true
 		if dir.x != 0.0:
-			_sprite.flip_h = dir.x < 0.0
+			_sprite.flip_h = dir.x > 0.0
 		if not _is_walking:
 			_is_walking = true
 			_start_walk_bob()

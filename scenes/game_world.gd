@@ -64,10 +64,9 @@ func _setup_camera() -> void:
 	var cam := Camera2D.new()
 	cam.name = "Camera"
 	cam.set_script(preload("res://scripts/camera_controller.gd"))
-	cam.position_smoothing_enabled = true
-	cam.position_smoothing_speed = 5.0
+	cam.position_smoothing_enabled = false
 	cam.zoom = Vector2(2.5, 2.5)  # Zoom in for pixel art feel
-	add_child(cam)
+	_player.add_child(cam)  # Child of player = zero-lag follow via transform inheritance
 
 func _setup_enemy_spawner() -> void:
 	var spawner := Node.new()
