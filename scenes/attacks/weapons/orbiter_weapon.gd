@@ -1,14 +1,14 @@
 extends BaseWeapon
 
 const LEVEL_STATS: Array = [
-	{"count": 1, "radius":  70.0, "damage": 12.0, "speed": 2.2},
-	{"count": 1, "radius":  75.0, "damage": 15.0, "speed": 2.5},
-	{"count": 2, "radius":  80.0, "damage": 15.0, "speed": 2.8},
-	{"count": 2, "radius":  85.0, "damage": 18.0, "speed": 3.1},
-	{"count": 3, "radius":  90.0, "damage": 20.0, "speed": 3.4},
-	{"count": 3, "radius":  95.0, "damage": 24.0, "speed": 3.7},
-	{"count": 4, "radius": 100.0, "damage": 28.0, "speed": 4.0},
-	{"count": 5, "radius": 110.0, "damage": 35.0, "speed": 4.5},
+	{"count": 1, "radius":  70.0, "damage": 12.0, "speed": 5.5},
+	{"count": 1, "radius":  75.0, "damage": 15.0, "speed": 6.0},
+	{"count": 2, "radius":  80.0, "damage": 15.0, "speed": 6.5},
+	{"count": 2, "radius":  85.0, "damage": 18.0, "speed": 7.0},
+	{"count": 3, "radius":  90.0, "damage": 20.0, "speed": 7.5},
+	{"count": 3, "radius":  95.0, "damage": 24.0, "speed": 8.0},
+	{"count": 4, "radius": 100.0, "damage": 28.0, "speed": 8.5},
+	{"count": 5, "radius": 110.0, "damage": 35.0, "speed": 9.0},
 ]
 
 const HIT_COOLDOWN := 0.5  # seconds per enemy before re-hit
@@ -37,7 +37,8 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(_player):
 		return
 	var stats := _get_stats_for_level(current_level)
-	_angle += float(stats["speed"]) * delta
+	var speed_scale: float = float(_player.move_speed) / float(_player.base_move_speed)
+	_angle += float(stats["speed"]) * speed_scale * delta
 	var count := _orbiters.size()
 	if count == 0:
 		return
