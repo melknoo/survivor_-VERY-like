@@ -121,6 +121,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			and not _level_up_screen_open and not _stats_screen_open:
 		_open_stats_screen()
 
+	# DEBUG: F5 spawns boss immediately
+	#if event is InputEventKey and event.keycode == KEY_F5 and event.pressed:
+	#	var spawner := get_tree().get_first_node_in_group("enemy_spawner")
+	#	if spawner and spawner.has_method("_start_boss_sequence") and not spawner._boss_spawning:
+	#		spawner._start_boss_sequence()
+
 func _open_stats_screen() -> void:
 	_stats_screen_open = true
 	get_tree().paused = true

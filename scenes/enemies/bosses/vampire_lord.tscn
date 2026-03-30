@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0aaaa000030"]
+
+[ext_resource type="Script" uid="uid://b0aaaa000031" path="res://scenes/enemies/bosses/vampire_lord.gd" id="1_boss"]
+
+[node name="VampireLord" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_boss")

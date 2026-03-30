@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0aaaa000032"]
+
+[ext_resource type="Script" uid="uid://b0aaaa000033" path="res://scenes/enemies/bosses/blood_nova.gd" id="1_nova"]
+
+[node name="BloodNova" type="Area2D"]
+script = ExtResource("1_nova")

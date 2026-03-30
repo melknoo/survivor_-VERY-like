@@ -56,8 +56,19 @@ var spawn_table: Array = [
 	},
 ]
 
+const BOSS_SCENE := preload("res://scenes/enemies/bosses/vampire_lord.tscn")
+const BOSS_WARNING_SCRIPT := preload("res://scenes/ui/boss_warning.gd")
+
+# Boss spawn times in seconds. Add more entries for future bosses.
+const BOSS_TIMES: Array = [300.0]
+
 var spawn_timer: Timer
 var enemy_count: int = 0
+
+var _next_boss_index: int = 0
+var _boss_active: bool = false
+var _boss_spawning: bool = false  # Locked while warning+spawn sequence runs
+var _spawn_suppressed: bool = false  # Suppress normal spawns briefly
 
 func _ready() -> void:
 	add_to_group("enemy_spawner")
@@ -66,6 +77,14 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer)
 	add_child(spawn_timer)
 	spawn_timer.start()
+
+func _process(_delta: float) -> void:
+	if _boss_spawning or _next_boss_index >= BOSS_TIMES.size():
+		return
+	var t := _get_game_time()
+	if t >= BOSS_TIMES[_next_boss_index]:
+		_next_boss_index += 1
+		_start_boss_sequence()
 
 func _get_game_time() -> float:
 	var gw := get_tree().get_first_node_in_group("game_world")
@@ -84,9 +103,59 @@ func _get_current_interval(wave: Dictionary) -> float:
 	var progress := clampf((t - float(wave["time_start"])) / duration, 0.0, 1.0)
 	return lerpf(float(wave["interval"]), float(wave["interval_end"]), progress)
 
+func _start_boss_sequence() -> void:
+	_boss_spawning = true
+
+	# Show warning UI
+	var warning_layer := CanvasLayer.new()
+	warning_layer.set_script(BOSS_WARNING_SCRIPT)
+	get_tree().root.add_child(warning_layer)
+
+	# After warning, suppress normal spawns for 3s then spawn boss
+	var cam := get_tree().get_first_node_in_group("camera")
+	if cam and cam.has_method("shake"):
+		cam.shake(4.0, 1.0)
+
+	# Wait 2s (warning duration) + 0.5s pause = 2.5s before boss arrives
+	var timer := get_tree().create_timer(2.5, true, false, true)
+	timer.timeout.connect(_do_spawn_boss)
+
+func _do_spawn_boss() -> void:
+	var player := _get_player()
+	var container := _get_container()
+	if not player or not container:
+		_boss_spawning = false
+		return
+
+	var cam := get_tree().get_first_node_in_group("camera")
+	if cam and cam.has_method("shake"):
+		cam.shake(8.0, 0.8)
+
+	var boss := BOSS_SCENE.instantiate()
+	boss.global_position = _random_spawn_pos(player.global_position)
+	container.add_child(boss)
+
+	# Connect boss signals
+	boss.died_signal.connect(_on_enemy_died)
+	boss.boss_died.connect(_on_boss_died)
+	enemy_count += 1
+	_boss_active = true
+	_boss_spawning = false
+
+	# Reduce spawn rate while boss lives
+	_spawn_suppressed = true
+
+func _on_boss_died() -> void:
+	_boss_active = false
+	_spawn_suppressed = false
+
 func _on_spawn_timer() -> void:
 	var wave := _get_current_wave()
-	spawn_timer.wait_time = maxf(0.1, _get_current_interval(wave))
+	var interval := _get_current_interval(wave)
+	# Halve spawn rate while boss is alive
+	if _spawn_suppressed:
+		interval *= 2.0
+	spawn_timer.wait_time = maxf(0.1, interval)
 
 	if enemy_count >= MAX_ENEMIES:
 		return

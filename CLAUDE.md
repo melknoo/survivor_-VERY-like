@@ -142,6 +142,49 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 Player hält `_pickup_combo` (reset nach 0.35s ohne Pickup).
 `xp_gem._collect()` ruft `_player_ref.increment_pickup_combo()` auf, pitch = `1.0 + clamp((combo-1)*0.06, 0, 0.8)`.
 
+## Boss-System
+
+### Architektur
+```
+scenes/enemies/bosses/
+  base_boss.gd          # extends base_enemy.gd — Boss-Bar, Tod-Sequenz, XP-Burst
+  vampire_lord.gd       # extends base_boss.gd — 2 Phasen, Blood Nova, Bat Swarm, Aura
+  vampire_lord.tscn
+  blood_nova.gd/.tscn   # Area2D, expandiert von 0→radius in 0.35s, trifft Player einmalig
+scenes/ui/boss_warning.gd  # CanvasLayer Layer 25, zeigt Warnung 2s, emitiert warning_done
+```
+
+### Spawn-Timing (`enemy_spawner.gd`)
+- `BOSS_TIMES: Array = [300.0]` — erweiterbar für mehr Bosse
+- Bei Zeitmarke: `_start_boss_sequence()` → Warning-UI (2s) → Boss spawnt am Rand
+- Während Boss lebt: Spawn-Rate normaler Gegner ×0.5
+- Boss-Tod: `_on_boss_died()` setzt `_spawn_suppressed = false`
+
+### Boss Health Bar
+- `CanvasLayer` Layer 6 — volle Breite (1600px), goldener Rand, Boss-Name oben links
+- Slide-In von oben beim Spawn, Slide-Out beim Tod
+- Wird durch `base_boss._update_boss_bar()` per Tween aktualisiert
+
+### Vampire Lord (Minute 5:00)
+| Stat | Wert |
+|------|------|
+| HP | 500 |
+| Speed | 55 → 80 (Phase 2) |
+| Damage | 25 |
+| XP | 50 (10 Gems à 5) |
+| Knockback Resist | 1.0 |
+
+**Phase 1 (100%–50% HP):**
+- Blood Nova alle 4s (Radius 200, 15 Schaden)
+- Bat Swarm alle 8s (4 Bats)
+
+**Phase 2 (unter 50% HP):**
+- Blood Nova alle 2.5s (Radius 280, 20 Schaden)
+- Bat Swarm alle 5s (6 Bats)
+- Lifesteal-Aura: 80px Radius, 5 Schaden/s wenn Spieler zu nah
+
+**Tod-Sequenz:** `Engine.time_scale = 0.2` → 7 Mini-Explosionen → Fullscreen-Flash → XP-Burst → `time_scale = 1.0`
+
 ## Performance-Regeln
 - `call_deferred()` für Node-Entfernung
 - Max 80 gleichzeitige Gegner
@@ -156,4 +199,5 @@ Player hält `_pickup_combo` (reset nach 0.35s ohne Pickup).
 - [x] Verschiedene Gegnertypen: Skeleton, Bat (Schwarm), Slime (Split-Mechanik)
 - [x] Zeitbasiertes Spawn-System mit Spawn-Tabelle + Stat-Scaling
 - [x] Sound-System: SFX-Manager + Music-Manager Autoloads, alle Gameplay-Sounds verdrahtet
+- [x] Boss-System: base_boss.gd, Vampire Lord (Minute 5), Blood Nova, Boss-Bar, Tod-Sequenz
 - [ ] Hauptmenü
