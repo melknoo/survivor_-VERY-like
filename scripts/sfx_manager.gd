@@ -4,12 +4,12 @@ extends Node
 # play() picks one at random and applies slight pitch variation.
 const SOUNDS: Dictionary = {
 	"knife_throw": [
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-001.wav",
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-002.wav",
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-003.wav",
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-004.wav",
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-005.wav",
-		"res://assets/Sounds/DSGNMisc_SKILL RELEASE-Flying Blades_HY_PC-006.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-001.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-002.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-003.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-004.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-005.wav",
+		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-006.wav",
 	],
 	"knife_hit": [
 		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-001.wav",
@@ -137,10 +137,12 @@ var _players: Array[AudioStreamPlayer] = []
 var _last_play_time: Dictionary = {}  # sound_name -> last play timestamp (s)
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_ensure_buses()
 	for _i in range(MAX_CONCURRENT):
 		var p := AudioStreamPlayer.new()
 		p.bus = "SFX"
+		p.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(p)
 		_players.append(p)
 

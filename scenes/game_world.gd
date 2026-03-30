@@ -184,6 +184,7 @@ func _show_next_level_up() -> void:
 		return
 
 	_level_up_screen_open = true
+	SFX.play("level_up", 0.0)
 	get_tree().paused = true
 
 	var screen := CanvasLayer.new()

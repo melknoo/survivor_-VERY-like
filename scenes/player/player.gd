@@ -249,7 +249,6 @@ func _do_level_up() -> void:
 	current_level += 1
 	required_xp = int(BASE_XP * float(current_level) * 1.2)
 
-	SFX.play("level_up", 0.0)
 	emit_signal("level_up", current_level)
 	emit_signal("level_changed", current_level)
 
