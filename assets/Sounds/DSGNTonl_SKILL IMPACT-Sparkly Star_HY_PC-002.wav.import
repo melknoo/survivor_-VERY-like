@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ggpxxwlfojd1"
+path="res://.godot/imported/DSGNTonl_SKILL IMPACT-Sparkly Star_HY_PC-002.wav-2defa4cf0a401b33e64b4b8b8af244db.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL IMPACT-Sparkly Star_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL IMPACT-Sparkly Star_HY_PC-002.wav-2defa4cf0a401b33e64b4b8b8af244db.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

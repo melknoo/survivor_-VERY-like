@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://clvgjs6degbct"
+path="res://.godot/imported/DSGNTonl_SKILL IMPACT-Energetic Impact_HY_PC-005.wav-54bdf571f2b37a1ab5cb1b11786a9484.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL IMPACT-Energetic Impact_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL IMPACT-Energetic Impact_HY_PC-005.wav-54bdf571f2b37a1ab5cb1b11786a9484.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

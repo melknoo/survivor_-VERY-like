@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ck4qtc2tneepi"
+path="res://.godot/imported/DSGNTonl_SKILL RELEASE-Magisparkle_HY_PC-005.wav-8c98dbf27c4e9eef6104ca7815d4581e.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL RELEASE-Magisparkle_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL RELEASE-Magisparkle_HY_PC-005.wav-8c98dbf27c4e9eef6104ca7815d4581e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

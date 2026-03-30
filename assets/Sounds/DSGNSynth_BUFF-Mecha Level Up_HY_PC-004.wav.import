@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cafrepdjwrsem"
+path="res://.godot/imported/DSGNSynth_BUFF-Mecha Level Up_HY_PC-004.wav-01f37dee10a17a6150a650ba4756f534.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNSynth_BUFF-Mecha Level Up_HY_PC-004.wav"
+dest_files=["res://.godot/imported/DSGNSynth_BUFF-Mecha Level Up_HY_PC-004.wav-01f37dee10a17a6150a650ba4756f534.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

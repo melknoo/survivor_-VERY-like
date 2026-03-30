@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://crgvefw83f56k"
+path="res://.godot/imported/DSGNMisc_HIT-Laser Synth_HY_PC-005.wav-2ce2a8662ff75bb26d47b4eb4069e53b.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_HIT-Laser Synth_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNMisc_HIT-Laser Synth_HY_PC-005.wav-2ce2a8662ff75bb26d47b4eb4069e53b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

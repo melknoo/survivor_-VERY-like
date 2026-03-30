@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://6cjki8h0qres"
+path="res://.godot/imported/DSGNMisc_MOVEMENT-Rhythm Laser_HY_PC-003.wav-b1e464791f53f2d18c288f0187241f58.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_MOVEMENT-Rhythm Laser_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_MOVEMENT-Rhythm Laser_HY_PC-003.wav-b1e464791f53f2d18c288f0187241f58.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

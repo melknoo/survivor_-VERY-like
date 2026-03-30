@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwve74vl5y0w3"
+path="res://.godot/imported/DSGNTonl_INTERFACE-Tonal Click_HY_PC-005.wav-669c628eb67e4f2ffe1c0fb6c16ead4d.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_INTERFACE-Tonal Click_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNTonl_INTERFACE-Tonal Click_HY_PC-005.wav-669c628eb67e4f2ffe1c0fb6c16ead4d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

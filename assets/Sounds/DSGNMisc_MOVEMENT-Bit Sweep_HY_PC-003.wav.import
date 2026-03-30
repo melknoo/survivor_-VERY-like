@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cvvedktsjcehs"
+path="res://.godot/imported/DSGNMisc_MOVEMENT-Bit Sweep_HY_PC-003.wav-d18779b151902b2470da7bbb8818c618.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_MOVEMENT-Bit Sweep_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_MOVEMENT-Bit Sweep_HY_PC-003.wav-d18779b151902b2470da7bbb8818c618.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

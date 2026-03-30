@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://baxx01n2o83rg"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Mecha Core Damage_HY_PC-006.wav-e50790dfd2a8472cbf1b3033d88bf5fc.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Mecha Core Damage_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Mecha Core Damage_HY_PC-006.wav-e50790dfd2a8472cbf1b3033d88bf5fc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

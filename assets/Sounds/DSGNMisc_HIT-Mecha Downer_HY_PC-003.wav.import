@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://6gt34rem4e5q"
+path="res://.godot/imported/DSGNMisc_HIT-Mecha Downer_HY_PC-003.wav-743b2f51d2d58ac21d34edb4d635e4bd.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_HIT-Mecha Downer_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_HIT-Mecha Downer_HY_PC-003.wav-743b2f51d2d58ac21d34edb4d635e4bd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

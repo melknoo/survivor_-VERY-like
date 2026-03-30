@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxi1isu11bv1n"
+path="res://.godot/imported/DSGNMisc_HIT-Noisy Hit_HY_PC-002.wav-87d5d2ebe27a22a5935d5def5cc3545a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_HIT-Noisy Hit_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNMisc_HIT-Noisy Hit_HY_PC-002.wav-87d5d2ebe27a22a5935d5def5cc3545a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -94,6 +94,8 @@ func _spawn_small_slimes() -> void:
 	if not container:
 		return
 
+	SFX.play("slime_split", 0.08, -2.0)
+
 	# Split effect: green flash on sprite before death
 	var tw := create_tween()
 	tw.tween_property(_sprite, "modulate", Color(0.3, 1.0, 0.2, 1.0), 0.05)

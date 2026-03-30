@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dm6l7jyebylxe"
+path="res://.godot/imported/DSGNTonl_SKILL RELEASE-Ricochet 1_HY_PC-002.wav-108294907780dfd1b48c964ce09e3bbe.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL RELEASE-Ricochet 1_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL RELEASE-Ricochet 1_HY_PC-002.wav-108294907780dfd1b48c964ce09e3bbe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

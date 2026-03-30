@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bygoj61knv3is"
+path="res://.godot/imported/DSGNMisc_PROJECTILE-High Whoosh_HY_PC-003.wav-8c99f539a1c9c87ad44eab22a5659a65.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_PROJECTILE-High Whoosh_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_PROJECTILE-High Whoosh_HY_PC-003.wav-8c99f539a1c9c87ad44eab22a5659a65.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

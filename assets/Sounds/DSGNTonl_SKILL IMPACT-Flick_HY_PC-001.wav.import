@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7trl3w6k7uo0"
+path="res://.godot/imported/DSGNTonl_SKILL IMPACT-Flick_HY_PC-001.wav-ed00d04b5d6899bd4ad6d7a7c57ba914.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL IMPACT-Flick_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL IMPACT-Flick_HY_PC-001.wav-ed00d04b5d6899bd4ad6d7a7c57ba914.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

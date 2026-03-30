@@ -112,6 +112,9 @@ func _on_spawn_timer() -> void:
 		var offset := Vector2(randf_range(-30.0, 30.0), randf_range(-30.0, 30.0)) if is_bat else Vector2.ZERO
 		_spawn_enemy(entry["scene"], base_pos + offset, container)
 
+	if is_bat and randf() < 0.3:
+		SFX.play("bat_screech", 0.05)
+
 func _spawn_enemy(type: String, pos: Vector2, container: Node) -> void:
 	if not enemy_scenes.has(type):
 		return

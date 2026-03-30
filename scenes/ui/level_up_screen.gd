@@ -219,6 +219,7 @@ func _make_card(upg: Dictionary, x: float, y: float, idx: int) -> Control:
 func _on_hover_enter(card: Control) -> void:
 	if _chosen:
 		return
+	SFX.play("card_hover", 0.0)
 	var tw := card.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tw.tween_property(card, "scale", Vector2(1.06, 1.06), 0.12)
 	tw.parallel().tween_property(card, "modulate", Color(1.15, 1.1, 0.9), 0.12)
@@ -239,6 +240,7 @@ func _on_card_input(event: InputEvent, upgrade_id: String, card_idx: int) -> voi
 			and event.button_index == MOUSE_BUTTON_LEFT \
 			and event.pressed):
 		return
+	SFX.play("card_select", 0.0)
 	_chosen = true
 
 	var chosen_card: Control = _cards[card_idx]

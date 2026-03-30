@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b50mnubovrrxw"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Mecha Damage_HY_PC-003.wav-efeb9df6cc6bb5b27b2801d445d7e927.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Mecha Damage_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Mecha Damage_HY_PC-003.wav-efeb9df6cc6bb5b27b2801d445d7e927.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

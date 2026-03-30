@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bht8w4pyq7sut"
+path="res://.godot/imported/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-003.wav-136eb01247c6267affdbb35d5dc43527.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-003.wav-136eb01247c6267affdbb35d5dc43527.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

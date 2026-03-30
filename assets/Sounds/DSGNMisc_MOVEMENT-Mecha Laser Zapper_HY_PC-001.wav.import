@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dp5uonm4o516r"
+path="res://.godot/imported/DSGNMisc_MOVEMENT-Mecha Laser Zapper_HY_PC-001.wav-60fe5e6bcf355ed7f4b2f5d2a4672b2f.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_MOVEMENT-Mecha Laser Zapper_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNMisc_MOVEMENT-Mecha Laser Zapper_HY_PC-001.wav-60fe5e6bcf355ed7f4b2f5d2a4672b2f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

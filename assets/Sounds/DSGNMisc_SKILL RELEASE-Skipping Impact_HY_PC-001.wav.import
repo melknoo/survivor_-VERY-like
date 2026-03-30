@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://vqm6b8se0ibr"
+path="res://.godot/imported/DSGNMisc_SKILL RELEASE-Skipping Impact_HY_PC-001.wav-626b3c4d0c938b7d138ab6c8c80da29e.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_SKILL RELEASE-Skipping Impact_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNMisc_SKILL RELEASE-Skipping Impact_HY_PC-001.wav-626b3c4d0c938b7d138ab6c8c80da29e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

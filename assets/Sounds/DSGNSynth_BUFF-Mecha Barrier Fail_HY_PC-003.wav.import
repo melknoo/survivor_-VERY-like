@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://buy2vdl8tc1c7"
+path="res://.godot/imported/DSGNSynth_BUFF-Mecha Barrier Fail_HY_PC-003.wav-0c743a14e8a339d481929002e29eae43.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNSynth_BUFF-Mecha Barrier Fail_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNSynth_BUFF-Mecha Barrier Fail_HY_PC-003.wav-0c743a14e8a339d481929002e29eae43.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

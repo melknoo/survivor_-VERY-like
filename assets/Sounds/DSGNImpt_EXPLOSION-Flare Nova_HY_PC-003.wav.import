@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cko3ox3of52u0"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Flare Nova_HY_PC-003.wav-1b7e7c55f0a67e3e93b948d457734fc1.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Flare Nova_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Flare Nova_HY_PC-003.wav-1b7e7c55f0a67e3e93b948d457734fc1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

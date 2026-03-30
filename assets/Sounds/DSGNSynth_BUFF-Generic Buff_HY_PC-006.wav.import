@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://euk1ci64a21q"
+path="res://.godot/imported/DSGNSynth_BUFF-Generic Buff_HY_PC-006.wav-c1bc8b8ff1e76331b46a9cdb4bfd6ba9.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNSynth_BUFF-Generic Buff_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNSynth_BUFF-Generic Buff_HY_PC-006.wav-c1bc8b8ff1e76331b46a9cdb4bfd6ba9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

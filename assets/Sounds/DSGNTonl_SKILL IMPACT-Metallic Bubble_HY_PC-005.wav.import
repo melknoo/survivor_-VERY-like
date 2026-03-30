@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c27h8eoxu6dya"
+path="res://.godot/imported/DSGNTonl_SKILL IMPACT-Metallic Bubble_HY_PC-005.wav-e9d9db460491f24ca2cd01132d9edbad.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL IMPACT-Metallic Bubble_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL IMPACT-Metallic Bubble_HY_PC-005.wav-e9d9db460491f24ca2cd01132d9edbad.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

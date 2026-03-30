@@ -64,6 +64,11 @@ open_stats={
 
 3d/physics_engine="Jolt Physics"
 
+[autoload]
+
+SFX="*res://scripts/sfx_manager.gd"
+Music="*res://scripts/music_manager.gd"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

@@ -51,6 +51,10 @@ var _pickup_col: CollisionShape2D
 var _dust_particles: GPUParticles2D
 var _attack_manager: Node
 
+var _pickup_combo: int = 0
+var _pickup_combo_timer: float = 0.0
+const PICKUP_COMBO_WINDOW := 0.35  # seconds without pickup to reset combo
+
 func _ready() -> void:
 	current_hp = max_hp
 	add_to_group("player")
@@ -153,7 +157,17 @@ func _setup_attack_manager() -> void:
 	_attack_manager.set_script(preload("res://scenes/attacks/attack_manager.gd"))
 	add_child(_attack_manager)
 
+func increment_pickup_combo() -> int:
+	_pickup_combo += 1
+	_pickup_combo_timer = PICKUP_COMBO_WINDOW
+	return _pickup_combo
+
 func _process(delta: float) -> void:
+	if _pickup_combo_timer > 0.0:
+		_pickup_combo_timer -= delta
+		if _pickup_combo_timer <= 0.0:
+			_pickup_combo = 0
+
 	if is_dead or hp_regen <= 0.0 or current_hp >= max_hp:
 		return
 	_hp_regen_frac += hp_regen * delta
@@ -202,6 +216,7 @@ func take_damage(amount: float) -> void:
 	current_hp = max(0, current_hp)
 	emit_signal("hp_changed", current_hp, max_hp)
 
+	SFX.play("player_hurt", 0.1)
 	is_invincible = true
 	_invincibility_timer.start()
 	_blink()
@@ -234,6 +249,7 @@ func _do_level_up() -> void:
 	current_level += 1
 	required_xp = int(BASE_XP * float(current_level) * 1.2)
 
+	SFX.play("level_up", 0.0)
 	emit_signal("level_up", current_level)
 	emit_signal("level_changed", current_level)
 
@@ -314,6 +330,8 @@ func _die() -> void:
 	_dust_particles.emitting = false
 	if _bob_tween:
 		_bob_tween.kill()
+
+	SFX.play("player_die", 0.0)
 
 	# Fade out
 	var tween := create_tween()

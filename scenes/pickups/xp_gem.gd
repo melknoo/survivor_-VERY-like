@@ -74,6 +74,12 @@ func _physics_process(delta: float) -> void:
 func _collect() -> void:
 	collision_layer = 0  # Prevent double-collection
 
+	var combo := 1
+	if _player_ref and _player_ref.has_method("increment_pickup_combo"):
+		combo = _player_ref.increment_pickup_combo()
+	var pitch := 1.0 + clampf((combo - 1) * 0.06, 0.0, 0.8)
+	SFX.play_pitched("xp_pickup", pitch)
+
 	if _player_ref and _player_ref.has_method("add_xp"):
 		_player_ref.add_xp(xp_value)
 

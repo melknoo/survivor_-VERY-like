@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bu870gglu6y4n"
+path="res://.godot/imported/DSGNMisc_MOVEMENT-Laser Zapswish_HY_PC-003.wav-3d0ba20a320cb989f78caa44fba28da5.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_MOVEMENT-Laser Zapswish_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_MOVEMENT-Laser Zapswish_HY_PC-003.wav-3d0ba20a320cb989f78caa44fba28da5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

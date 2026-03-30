@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7aqdlgllhlst"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Forced Interruption_HY_PC-002.wav-d2bdc6527d576c5195a9183ef4db70a9.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Forced Interruption_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Forced Interruption_HY_PC-002.wav-d2bdc6527d576c5195a9183ef4db70a9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

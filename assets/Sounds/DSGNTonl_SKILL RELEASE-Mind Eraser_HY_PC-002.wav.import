@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://drym2rvi5wwsw"
+path="res://.godot/imported/DSGNTonl_SKILL RELEASE-Mind Eraser_HY_PC-002.wav-b9b2ee03ee14d127a6fec3a8f452631d.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNTonl_SKILL RELEASE-Mind Eraser_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNTonl_SKILL RELEASE-Mind Eraser_HY_PC-002.wav-b9b2ee03ee14d127a6fec3a8f452631d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d846rt156uuq"
+path="res://.godot/imported/DSGNMisc_HIT-Hit Rattle_HY_PC-006.wav-26489a37368cd8d931ef6bced5cf1445.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_HIT-Hit Rattle_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNMisc_HIT-Hit Rattle_HY_PC-006.wav-26489a37368cd8d931ef6bced5cf1445.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

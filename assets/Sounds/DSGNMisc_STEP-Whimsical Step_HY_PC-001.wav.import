@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ds3c1kda6305r"
+path="res://.godot/imported/DSGNMisc_STEP-Whimsical Step_HY_PC-001.wav-772b38fbef9c4a371e95a049c1615bbe.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_STEP-Whimsical Step_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNMisc_STEP-Whimsical Step_HY_PC-001.wav-772b38fbef9c4a371e95a049c1615bbe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -32,7 +32,7 @@ func activate() -> void:
 	var stats := _get_stats_for_level(current_level)
 	var count: int = stats["projectiles"]
 	_fire_at(target, count, get_effective_damage())
-	# TODO: Play SFX (knife throw)
+	SFX.play("knife_throw")
 
 func _find_nearest_enemy() -> Node2D:
 	var enemies := get_tree().get_nodes_in_group("enemies")

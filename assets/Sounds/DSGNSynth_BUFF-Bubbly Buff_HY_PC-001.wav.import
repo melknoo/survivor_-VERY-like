@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://basm4pv1lvbb"
+path="res://.godot/imported/DSGNSynth_BUFF-Bubbly Buff_HY_PC-001.wav-0247c700b5c4f5cc0e79f27a5758c1a7.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNSynth_BUFF-Bubbly Buff_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNSynth_BUFF-Bubbly Buff_HY_PC-001.wav-0247c700b5c4f5cc0e79f27a5758c1a7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dmua3ort2e707"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Smaller Flare_HY_PC-003.wav-2f25e1e412c17e30662a58cc877a7d6a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Smaller Flare_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Smaller Flare_HY_PC-003.wav-2f25e1e412c17e30662a58cc877a7d6a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

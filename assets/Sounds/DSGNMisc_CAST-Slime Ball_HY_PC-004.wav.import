@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://wmi404atgy2a"
+path="res://.godot/imported/DSGNMisc_CAST-Slime Ball_HY_PC-004.wav-32888120a18d82dc75ef3b42dc6691de.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_CAST-Slime Ball_HY_PC-004.wav"
+dest_files=["res://.godot/imported/DSGNMisc_CAST-Slime Ball_HY_PC-004.wav-32888120a18d82dc75ef3b42dc6691de.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

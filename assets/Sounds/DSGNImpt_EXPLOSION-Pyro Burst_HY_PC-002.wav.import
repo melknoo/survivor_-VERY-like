@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsqjwxu7e2p40"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Pyro Burst_HY_PC-002.wav-d497f2a34cc387bab96752e3fe5ebd2f.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Pyro Burst_HY_PC-002.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Pyro Burst_HY_PC-002.wav-d497f2a34cc387bab96752e3fe5ebd2f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

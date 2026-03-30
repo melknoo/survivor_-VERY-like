@@ -129,7 +129,7 @@ func _on_orbiter_body_entered(body: Node2D, _orb: Area2D) -> void:
 	_hit_times[eid] = now + int(HIT_COOLDOWN * 1000)
 	if body.has_method("take_damage"):
 		body.take_damage(get_effective_damage())
-	# TODO: Play SFX (orbiter hit)
+	SFX.play("orbiter_hit")
 
 func _on_tree_exiting() -> void:
 	for o in _orbiters:

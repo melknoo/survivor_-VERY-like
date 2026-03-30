@@ -131,6 +131,7 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 	panel_tween.tween_property(panel, "position:y", panel.position.y - 10, 0.4).from(panel.position.y + 20)
 
 func _on_restart() -> void:
+	SFX.play("button_click", 0.0)
 	get_tree().paused = false
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()

@@ -202,6 +202,8 @@ func take_damage(amount: float) -> void:
 	var tween := create_tween()
 	tween.tween_property(_health_bar_fill, "size:x", 32.0 * (current_hp / max_hp), 0.15)
 
+	SFX.play("enemy_hit", 0.1, -4.0)
+
 	# Hit flash
 	_trigger_hit_flash()
 
@@ -240,6 +242,7 @@ func _die() -> void:
 	collision_layer = 0
 	_contact_area.monitoring = false
 
+	SFX.play("enemy_die", 0.12)
 	emit_signal("died_signal")
 
 	# Notify kill counter

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d2mvt067b55yf"
+path="res://.godot/imported/DSGNSynth_BUFF-Mecha Guarantee Hit_HY_PC-006.wav-f2b821963b6e14d3cb4c80d96592d32a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNSynth_BUFF-Mecha Guarantee Hit_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNSynth_BUFF-Mecha Guarantee Hit_HY_PC-006.wav-f2b821963b6e14d3cb4c80d96592d32a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

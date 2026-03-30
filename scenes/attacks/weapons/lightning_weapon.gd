@@ -33,6 +33,7 @@ func activate() -> void:
 
 	var primary := candidates[randi() % candidates.size()] as Node2D
 	var from_pos := primary.global_position + Vector2(randf_range(-20.0, 20.0), -680.0)
+	SFX.play("lightning_strike")
 	_strike(primary, get_effective_damage(), from_pos, true)
 
 	var hit: Array = [primary]
@@ -41,9 +42,9 @@ func activate() -> void:
 		var next := _find_chain_target(last.global_position, chain_radius, hit)
 		if not next:
 			break
+		SFX.play("lightning_chain", 0.1, -4.0)
 		_strike(next, get_effective_damage() * 0.65, last.global_position, false)
 		hit.append(next)
-	# TODO: Play SFX (thunder crack)
 
 func _strike(enemy: Node2D, dmg: float, origin: Vector2, primary: bool) -> void:
 	if enemy.has_method("take_damage"):

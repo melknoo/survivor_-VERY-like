@@ -64,7 +64,8 @@ assets/           # Sprites, Tilesets, Fonts, Audio – VOR Implementierung anal
 - Signale als Kommunikation zwischen Nodes, keine direkten Referenzen über mehrere Ebenen
 - `class_name` am Anfang jedes Skripts für Type Hints
 - Snake_case für Variablen und Funktionen, PascalCase für Klassen
-- Kein Autoload/Singleton – Kommunikation über Signale und Groups
+- Kein Autoload/Singleton für Spiellogik – Kommunikation über Signale und Groups
+- **Ausnahme**: `SFX` und `Music` sind Autoloads (Audio-Manager brauchen globalen Zugriff)
 
 ### Szenen (.tscn)
 - Godot 4 Textformat mit korrekten `uid://`-Referenzen
@@ -117,6 +118,30 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 - **Zeitscaling**: ab Minute 1 → HP +8%/min, Damage +5%/min, Speed +2%/min (max 1.5×)
 - `game_time` wird von `game_world` (Group `"game_world"`) gelesen
 
+## Audio-System
+
+### Architektur
+- **`SFX`** (Autoload, `scripts/sfx_manager.gd`) — SFX-Pool: 16 `AudioStreamPlayer`s, Debounce 50ms, Pitch-Variation
+  - `SFX.play(sound_name, pitch_variation=0.08, volume_db=0.0)` — zufällige Variante, Debounce
+  - `SFX.play_pitched(sound_name, pitch, volume_db=0.0)` — fester Pitch (XP-Combo-Töne)
+- **`Music`** (Autoload, `scripts/music_manager.gd`) — Musik-Fade-In/Out via Tween
+  - `Music.play_track(path, fade_in=1.0)` — fade out alten Track, fade in neuen
+  - `Music.stop(fade_out=1.0)` — fade out + stop
+
+### Audio-Buses (via `AudioServer` zur Laufzeit erstellt)
+- `SFX` (0 dB) — Waffen, Gegner, Spieler
+- `UI` (−5 dB) — card_hover, card_select, button_click, level_up
+- `Music` (−10 dB) — Hintergrundmusik
+
+### Sound-Keys (SOUNDS-Dictionary in sfx_manager.gd)
+`knife_throw`, `knife_hit`, `garlic_pulse`, `orbiter_hit`, `lightning_strike`, `lightning_chain`,
+`enemy_hit`, `enemy_die`, `slime_split`, `bat_screech`, `player_hurt`, `player_die`,
+`xp_pickup`, `level_up`, `card_hover`, `card_select`, `button_click`
+
+### XP-Combo-Pitch
+Player hält `_pickup_combo` (reset nach 0.35s ohne Pickup).
+`xp_gem._collect()` ruft `_player_ref.increment_pickup_combo()` auf, pitch = `1.0 + clamp((combo-1)*0.06, 0, 0.8)`.
+
 ## Performance-Regeln
 - `call_deferred()` für Node-Entfernung
 - Max 80 gleichzeitige Gegner
@@ -130,4 +155,5 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 - [x] Waffen-System: Knives, Garlic, Orbiter, Lightning
 - [x] Verschiedene Gegnertypen: Skeleton, Bat (Schwarm), Slime (Split-Mechanik)
 - [x] Zeitbasiertes Spawn-System mit Spawn-Tabelle + Stat-Scaling
+- [x] Sound-System: SFX-Manager + Music-Manager Autoloads, alle Gameplay-Sounds verdrahtet
 - [ ] Hauptmenü

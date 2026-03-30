@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bh5vwdfu0ivtn"
+path="res://.godot/imported/DSGNMisc_USABLE-Weird Item_HY_PC-003.wav-e910982d966cd6124afac4a4a2f5a7b4.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNMisc_USABLE-Weird Item_HY_PC-003.wav"
+dest_files=["res://.godot/imported/DSGNMisc_USABLE-Weird Item_HY_PC-003.wav-e910982d966cd6124afac4a4a2f5a7b4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

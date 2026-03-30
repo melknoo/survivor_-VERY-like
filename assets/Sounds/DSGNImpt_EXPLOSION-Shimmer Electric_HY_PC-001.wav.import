@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cxxfy14tj0hlc"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Shimmer Electric_HY_PC-001.wav-8d72c2464182e77351d5ee76759e715a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/DSGNImpt_EXPLOSION-Shimmer Electric_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Shimmer Electric_HY_PC-001.wav-8d72c2464182e77351d5ee76759e715a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

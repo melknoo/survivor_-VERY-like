@@ -39,6 +39,7 @@ func activate() -> void:
 	var stats := _get_stats_for_level(current_level)
 	var dmg := get_effective_damage()
 	var knockback: float = stats["knockback"]
+	SFX.play("garlic_pulse", 0.05, -6.0)
 	_pulse()
 	for body in _area.get_overlapping_bodies():
 		if not is_instance_valid(body):
@@ -48,7 +49,6 @@ func activate() -> void:
 			if body.has_method("apply_knockback"):
 				var dir := (body.global_position - _player.global_position).normalized()
 				body.apply_knockback(dir, knockback)
-	# TODO: Play SFX (garlic pulse)
 
 func _pulse() -> void:
 	if not is_instance_valid(_aura):
