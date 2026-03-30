@@ -68,6 +68,7 @@ open_stats={
 
 SFX="*res://scripts/sfx_manager.gd"
 Music="*res://scripts/music_manager.gd"
+Settings="*res://scripts/settings_manager.gd"
 
 [rendering]
 

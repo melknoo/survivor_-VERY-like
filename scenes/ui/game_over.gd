@@ -87,42 +87,27 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 
 	vbox.add_child(Control.new())  # Spacer
 
+	# Button row
+	var hbox := HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 16)
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_child(hbox)
+
 	# Restart button
 	var btn := Button.new()
-	btn.text = "Play Again"
-	btn.custom_minimum_size = Vector2(200, 48)
-	btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-
-	var btn_style := StyleBoxFlat.new()
-	btn_style.bg_color = Color(0.25, 0.1, 0.45)
-	btn_style.corner_radius_top_left = 6
-	btn_style.corner_radius_top_right = 6
-	btn_style.corner_radius_bottom_left = 6
-	btn_style.corner_radius_bottom_right = 6
-	btn_style.border_width_top = 1
-	btn_style.border_width_bottom = 1
-	btn_style.border_width_left = 1
-	btn_style.border_width_right = 1
-	btn_style.border_color = Color(0.6, 0.3, 0.9)
-	btn.add_theme_stylebox_override("normal", btn_style)
-
-	var btn_hover := StyleBoxFlat.new()
-	btn_hover.bg_color = Color(0.35, 0.15, 0.6)
-	btn_hover.corner_radius_top_left = 6
-	btn_hover.corner_radius_top_right = 6
-	btn_hover.corner_radius_bottom_left = 6
-	btn_hover.corner_radius_bottom_right = 6
-	btn_hover.border_color = Color(0.7, 0.4, 1.0)
-	btn_hover.border_width_top = 1
-	btn_hover.border_width_bottom = 1
-	btn_hover.border_width_left = 1
-	btn_hover.border_width_right = 1
-	btn.add_theme_stylebox_override("hover", btn_hover)
-
-	btn.add_theme_color_override("font_color", Color(1.0, 0.9, 1.0))
-	btn.add_theme_font_size_override("font_size", 18)
+	btn.text = "Nochmal"
+	btn.custom_minimum_size = Vector2(180, 48)
+	_apply_btn_style(btn, Color(0.25, 0.1, 0.45), Color(0.35, 0.15, 0.6), Color(0.6, 0.3, 0.9))
 	btn.pressed.connect(_on_restart)
-	vbox.add_child(btn)
+	hbox.add_child(btn)
+
+	# Main menu button
+	var menu_btn := Button.new()
+	menu_btn.text = "Hauptmenü"
+	menu_btn.custom_minimum_size = Vector2(180, 48)
+	_apply_btn_style(menu_btn, Color(0.1, 0.12, 0.28), Color(0.18, 0.2, 0.40), Color(0.3, 0.4, 0.75))
+	menu_btn.pressed.connect(_on_main_menu)
+	hbox.add_child(menu_btn)
 
 	# Fade in panel
 	await get_tree().create_timer(0.4).timeout
@@ -130,8 +115,29 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 	panel_tween.tween_property(panel, "modulate:a", 1.0, 0.4)
 	panel_tween.tween_property(panel, "position:y", panel.position.y - 10, 0.4).from(panel.position.y + 20)
 
+func _apply_btn_style(btn: Button, bg: Color, hover_bg: Color, border: Color) -> void:
+	var s := StyleBoxFlat.new()
+	s.bg_color = bg
+	s.corner_radius_top_left = 6; s.corner_radius_top_right = 6
+	s.corner_radius_bottom_left = 6; s.corner_radius_bottom_right = 6
+	s.border_width_top = 1; s.border_width_bottom = 1
+	s.border_width_left = 1; s.border_width_right = 1
+	s.border_color = border
+	btn.add_theme_stylebox_override("normal", s)
+	var h := s.duplicate() as StyleBoxFlat
+	h.bg_color = hover_bg
+	btn.add_theme_stylebox_override("hover", h)
+	btn.add_theme_color_override("font_color", Color(1.0, 0.9, 1.0))
+	btn.add_theme_font_size_override("font_size", 18)
+
 func _on_restart() -> void:
 	SFX.play("button_click", 0.0)
 	get_tree().paused = false
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
+
+func _on_main_menu() -> void:
+	SFX.play("button_click", 0.0)
+	get_tree().paused = false
+	Engine.time_scale = 1.0
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")

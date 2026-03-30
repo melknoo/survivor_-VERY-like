@@ -5,6 +5,7 @@ const HUD_SCENE := preload("res://scenes/ui/hud.tscn")
 const GAME_OVER_SCENE := preload("res://scenes/ui/game_over.tscn")
 const LEVEL_UP_SCREEN_SCRIPT := preload("res://scenes/ui/level_up_screen.gd")
 const STATS_SCREEN_SCRIPT    := preload("res://scenes/ui/stats_screen.gd")
+const PAUSE_MENU_SCRIPT      := preload("res://scenes/ui/pause_menu.gd")
 
 var kill_count: int = 0
 var game_time: float = 0.0
@@ -17,6 +18,7 @@ var _upgrade_manager: Node
 var _level_up_queue: Array = []
 var _level_up_screen_open: bool = false
 var _stats_screen_open: bool = false
+var _pause_menu_open: bool = false
 
 func _ready() -> void:
 	add_to_group("game_world")
@@ -117,9 +119,28 @@ func _process(delta: float) -> void:
 		_world_gen.update_chunks(_player.global_position)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and not is_game_over \
+			and not _level_up_screen_open and not _stats_screen_open \
+			and not _pause_menu_open:
+		_open_pause_menu()
+
 	if event.is_action_pressed("open_stats") and not is_game_over \
-			and not _level_up_screen_open and not _stats_screen_open:
+			and not _level_up_screen_open and not _stats_screen_open \
+			and not _pause_menu_open:
 		_open_stats_screen()
+
+func _open_pause_menu() -> void:
+	_pause_menu_open = true
+	get_tree().paused = true
+	var menu := CanvasLayer.new()
+	menu.set_script(PAUSE_MENU_SCRIPT)
+	add_child(menu)
+	menu.resumed.connect(func() -> void:
+		_pause_menu_open = false
+	)
+	menu.went_to_main_menu.connect(func() -> void:
+		_pause_menu_open = false
+	)
 
 	# DEBUG: F5 spawns boss immediately
 	#if event is InputEventKey and event.keycode == KEY_F5 and event.pressed:

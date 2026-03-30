@@ -200,4 +200,28 @@ scenes/ui/boss_warning.gd  # CanvasLayer Layer 25, zeigt Warnung 2s, emitiert wa
 - [x] Zeitbasiertes Spawn-System mit Spawn-Tabelle + Stat-Scaling
 - [x] Sound-System: SFX-Manager + Music-Manager Autoloads, alle Gameplay-Sounds verdrahtet
 - [x] Boss-System: base_boss.gd, Vampire Lord (Minute 5), Blood Nova, Boss-Bar, Tod-Sequenz
-- [ ] Hauptmenü
+- [x] Hauptmenü, Einstellungen, Pause-Menü, Settings-Autoload
+
+## Menü-System
+
+### Scene Flow
+`main.tscn` → `main_menu.tscn` → (SPIELEN) → `game_world.tscn`
+Game Over / Pause → "Hauptmenü" → `main_menu.tscn`
+
+### Dateien
+| Datei | Zweck |
+|-------|-------|
+| `scripts/settings_manager.gd` | Autoload "Settings": music_volume, sfx_volume, screenshake, save/load via ConfigFile (`user://settings.cfg`) |
+| `scenes/ui/main_menu.gd` | CanvasLayer layer=0; Partikel-Hintergrund, Ribbon_Yellow_3Slides-Titel, NinePatch-Buttons, Fade-Transition |
+| `scenes/ui/settings_menu.gd` | CanvasLayer layer=60; HSlider (Musik/SFX), CheckButton (Shake), Settings.save_settings() |
+| `scenes/ui/pause_menu.gd` | CanvasLayer layer=40; ESC in game_world; FORTSETZEN / EINSTELLUNGEN / HAUPTMENÜ |
+
+### Settings-Autoload
+- `Settings.music_volume: int` (0–100)
+- `Settings.sfx_volume: int` (0–100)
+- `Settings.screenshake: bool`
+- `Settings.apply_to_buses()` — rechnet % → dB via `20*log10(pct/100)`
+- `Settings.save_settings()` / `Settings.load_settings()` via ConfigFile
+
+### ESC-Handling (game_world.gd)
+`ui_cancel` öffnet Pause-Menü (blockiert durch `_pause_menu_open`, `_level_up_screen_open`, `_stats_screen_open`, `is_game_over`)

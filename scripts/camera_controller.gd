@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 		offset = Vector2.ZERO
 
 func shake(intensity: float, duration: float) -> void:
+	if not Settings.screenshake:
+		return
 	shake_intensity = intensity
 	shake_duration = duration
 	shake_timer = duration
