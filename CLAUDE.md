@@ -80,6 +80,7 @@ assets/           # Sprites, Tilesets, Fonts, Audio – VOR Implementierung anal
 ### Groups
 - `"player"` – Spieler-Node
 - `"enemies"` – Alle Gegner
+- `"enemy_spawner"` – EnemySpawner-Node (für `register_enemy()` aus Slime-Split)
 
 ## Art Direction / Visueller Stil
 - **Pixel-Art** mit crisp Pixels, kein Smoothing
@@ -95,9 +96,30 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 3. Passende Assets den Spielelementen zuordnen
 4. Nur Code-Platzhalter nutzen wenn kein passendes Asset vorhanden ist
 
+## Gegner-System
+
+### Basis-Klasse (`base_enemy.gd`)
+- `enemy_type: String` — Typ-Kennzeichnung ("skeleton", "bat", "slime")
+- `knockback_resistance: float` — 0.0 = voller Knockback, 1.0 = immun; skaliert `apply_knockback`
+- `_add_animation_row(frames, name, path, count, fw, fh, speed, loop, row)` — lädt Frames aus einer bestimmten Zeile eines Sprite-Sheets
+
+### Gegner-Typen
+| Typ | Szene | HP | Speed | Besonderheit |
+|-----|-------|----|-------|--------------|
+| Skeleton | `base_enemy.tscn` | 20 | 80 | Standard, Enemy_Animations_Set |
+| Bat | `bat_enemy.tscn` | 8 | 150 | Sinus-Flattern, spawnt als Schwarm 4-7, `Enemy Sprites 48x48/Enemy_015.png` |
+| Slime (groß) | `slime_enemy.tscn` | 45 | 45 | KR 0.7, teilt sich bei Tod in 2 kleine |
+| Slime (klein) | `slime_enemy.tscn` | 15 | 75 | KR 0.3, `is_small=true`, `can_split=false` |
+
+### Spawn-System (`enemy_spawner.gd`)
+- **Spawn-Tabelle**: 5 Zeitphasen (0-2min, 2-4, 4-6, 6-10, 10+), jede Phase hat weighted entries und lineares Interval-Lerp
+- `register_enemy(enemy)`: verbindet `died_signal` + inkrementiert `enemy_count` — wird auch von Slime-Split aufgerufen
+- **Zeitscaling**: ab Minute 1 → HP +8%/min, Damage +5%/min, Speed +2%/min (max 1.5×)
+- `game_time` wird von `game_world` (Group `"game_world"`) gelesen
+
 ## Performance-Regeln
 - `call_deferred()` für Node-Entfernung
-- Max ~50 gleichzeitige Gegner
+- Max 80 gleichzeitige Gegner
 - Object Pooling für Projektile wenn nötig
 - Chunks entfernen die zu weit vom Spieler entfernt sind
 
@@ -106,5 +128,6 @@ Der `assets/`-Ordner enthält heruntergeladene Assets. Vor jeder Implementierung
 - [x] Visual Polish: Partikel, Screenshake, Damage Numbers, Shader
 - [x] Item/Upgrade-System (passive Upgrades + Level-Up-Screen)
 - [x] Waffen-System: Knives, Garlic, Orbiter, Lightning
-- [ ] Verschiedene Gegnertypen
+- [x] Verschiedene Gegnertypen: Skeleton, Bat (Schwarm), Slime (Split-Mechanik)
+- [x] Zeitbasiertes Spawn-System mit Spawn-Tabelle + Stat-Scaling
 - [ ] Hauptmenü

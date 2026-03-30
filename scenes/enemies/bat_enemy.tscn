@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b0aaaa000020"]
+
+[ext_resource type="Script" path="res://scenes/enemies/bat_enemy.gd" id="1_bat"]
+
+[node name="BatEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_bat")

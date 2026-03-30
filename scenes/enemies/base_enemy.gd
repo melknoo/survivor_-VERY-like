@@ -7,6 +7,8 @@ signal died_signal
 @export var damage: float = 10.0
 @export var xp_value: int = 5
 @export var particle_color: Color = Color(0.9, 0.3, 0.1)
+@export var enemy_type: String = "skeleton"
+@export var knockback_resistance: float = 0.0
 
 const XP_GEM_SCENE := preload("res://scenes/pickups/xp_gem.tscn")
 const DEATH_PARTICLES_SCENE := preload("res://scenes/effects/death_particles.tscn")
@@ -75,6 +77,23 @@ func _setup_sprite() -> void:
 	_sprite.material = _shader_material
 
 	add_child(_sprite)
+
+func _add_animation_row(frames: SpriteFrames, anim_name: String, path: String,
+		frame_count: int, fw: int, fh: int, speed: float, loop: bool, row: int) -> void:
+	frames.add_animation(anim_name)
+	frames.set_animation_speed(anim_name, speed)
+	frames.set_animation_loop(anim_name, loop)
+	if ResourceLoader.exists(path):
+		var tex: Texture2D = load(path)
+		for i in range(frame_count):
+			var atlas := AtlasTexture.new()
+			atlas.atlas = tex
+			atlas.region = Rect2(i * fw, row * fh, fw, fh)
+			frames.add_frame(anim_name, atlas)
+	else:
+		var img := Image.create(fw, fh, false, Image.FORMAT_RGBA8)
+		img.fill(Color(0.8, 0.2, 0.2))
+		frames.add_frame(anim_name, ImageTexture.create_from_image(img))
 
 func _add_animation(frames: SpriteFrames, anim_name: String, path: String,
 		frame_count: int, fw: int, fh: int, speed: float, loop: bool) -> void:
@@ -169,7 +188,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func apply_knockback(direction: Vector2, force: float) -> void:
-	_knockback = direction * force
+	_knockback = direction * force * (1.0 - knockback_resistance)
 
 func take_damage(amount: float) -> void:
 	if _is_dead:
