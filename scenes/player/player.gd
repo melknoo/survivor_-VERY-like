@@ -15,7 +15,7 @@ signal level_changed(new_level: int)
 @export var char_row: int = 0  # 0-6, welche Zeile aus rogues.png
 
 # Base values (never modified, used by recalculate_stats)
-var base_move_speed: float = 200.0
+var base_move_speed: float = 100.0
 var base_max_hp: int = 100
 var base_attack_damage: float = 10.0
 var base_attack_speed: float = 1.0
