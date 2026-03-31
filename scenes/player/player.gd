@@ -341,3 +341,5 @@ func _die() -> void:
 func _on_pickup_area_entered(area: Area2D) -> void:
 	if area.is_in_group("xp_gem"):
 		area.attract_to(self)
+	elif area.is_in_group("gold_gem"):
+		area.attract_to(self)

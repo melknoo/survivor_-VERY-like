@@ -5,6 +5,7 @@ const WEAPON_SCRIPTS: Dictionary = {
 	"weapon_garlic":    "res://scenes/attacks/weapons/garlic_weapon.gd",
 	"weapon_orbiter":   "res://scenes/attacks/weapons/orbiter_weapon.gd",
 	"weapon_lightning": "res://scenes/attacks/weapons/lightning_weapon.gd",
+	"weapon_bow":       "res://scenes/attacks/weapons/bow_weapon.gd",
 }
 
 var _weapons: Dictionary = {}  # weapon_id -> BaseWeapon node

@@ -9,6 +9,7 @@ func _ready() -> void:
 	move_speed = 150.0
 	damage = 5.0
 	xp_value = 2
+	gold_drop_chance = 0.2
 	knockback_resistance = 0.0
 	particle_color = Color(0.5, 0.1, 0.85)
 	_phase_offset = randf() * TAU

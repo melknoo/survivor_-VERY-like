@@ -13,6 +13,7 @@ func _ready() -> void:
 		damage = 8.0
 		xp_value = 3
 		gold_value = 1
+		gold_drop_chance = 0.25
 		knockback_resistance = 0.3
 		particle_color = Color(0.3, 1.0, 0.2)
 	else:
@@ -21,6 +22,7 @@ func _ready() -> void:
 		damage = 15.0
 		xp_value = 8
 		gold_value = 2
+		gold_drop_chance = 0.6
 		knockback_resistance = 0.7
 		particle_color = Color(0.1, 0.85, 0.1)
 

@@ -201,6 +201,9 @@ scenes/ui/boss_warning.gd  # CanvasLayer Layer 25, zeigt Warnung 2s, emitiert wa
 - [x] Sound-System: SFX-Manager + Music-Manager Autoloads, alle Gameplay-Sounds verdrahtet
 - [x] Boss-System: base_boss.gd, Vampire Lord (Minute 5), Blood Nova, Boss-Bar, Tod-Sequenz
 - [x] Hauptmenü, Einstellungen, Pause-Menü, Settings-Autoload
+- [x] Gold-System: physische Gold-Gems, Drop-Chancen pro Gegnertyp, persistente Progression
+- [x] Shop: 8 permanente Upgrades (Vitalität, Stärke, Schnelligkeit, Hast, Panzerung, Regeneration, Magnetismus, Gier)
+- [x] Charakterauswahl: Diebin (Knives), Bogenschütze (Bow), Ritter (Garlic, 150G), Magierin (Lightning, 200G)
 
 ## Menü-System
 
@@ -225,3 +228,46 @@ Game Over / Pause → "Hauptmenü" → `main_menu.tscn`
 
 ### ESC-Handling (game_world.gd)
 `ui_cancel` öffnet Pause-Menü (blockiert durch `_pause_menu_open`, `_level_up_screen_open`, `_stats_screen_open`, `is_game_over`)
+
+## Gold & Permanente Progression
+
+### Gold-Flow
+1. Gegner stirbt → `_spawn_gold_gem()` mit Chance-Roll → physische Gem in `pickups_container`
+2. Spieler sammelt Gem → `Progression.add_run_gold(value)` → Signal `run_gold_changed` → HUD
+3. Tod → `Progression.end_run()` → multipliziert mit Gold-Bonus-Upgrade → addiert zu `total_gold` → `save()`
+
+### Drop-Chancen
+| Gegner | Chance | Gold |
+|--------|--------|------|
+| Skeleton | 40% | 1 |
+| Bat | 20% | 1 |
+| Slime (groß) | 60% | 2 |
+| Slime (klein) | 25% | 1 |
+| Boss | 100% | 15–20 (mehrere Gems) |
+
+### Gold-Gem (`scenes/pickups/gold_gem.gd`)
+- Identisch zu `xp_gem.gd`: Area2D Layer 4, Group `"gold_gem"`, Attract-Mechanik
+- Sprite: `assets/items/coin/coin_1..4.png` (zufällig gewählt)
+- Bob-Speed: 0.45s (vs. 0.6s bei XP-Gem)
+- `_collect()`: `SFX.play("gold_pickup")` + goldene Partikel + `Progression.add_run_gold()`
+
+### Permanente Upgrades (`Progression.PERM_UPGRADES`)
+| ID | Name | Effekt | Kosten Lv.1–5 |
+|----|------|--------|----------------|
+| `hp` | Vitalität | +10 Max HP/Lv | 30→250 |
+| `damage` | Stärke | +8%/Lv Schaden | 30→250 |
+| `speed` | Schnelligkeit | +6%/Lv Speed | 25→220 |
+| `attack_speed` | Hast | +5%/Lv AtkSpeed | 35→270 |
+| `armor` | Panzerung | +1 Rüstung/Lv | 40→300 |
+| `hp_regen` | Regeneration | +0.3 HP/s/Lv | 35→280 |
+| `pickup_range` | Magnetismus | +10%/Lv Pickup | 20→200 |
+| `gold_bonus` | Gier | +10%/Lv Gold-Ertrag | 50→400 |
+
+### Stat-Berechnungsreihenfolge
+`Finale Stats = (Charakter-Basis + Perm-Boni) * Run-Upgrade-Multiplikator`
+Permanente Boni werden in `game_world._setup_player()` auf `base_*` gesetzt, BEVOR `add_child()`.
+
+### Speicherung
+`Progression` Autoload (`scripts/progression_manager.gd`) → `user://progression.cfg`
+- Alle `perm_levels[key]` werden als `perm_<key>` gespeichert (loop, kein hardcoding)
+- Alte Savefiles brechen nicht — neue Keys bekommen Default 0

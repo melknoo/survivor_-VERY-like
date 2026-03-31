@@ -124,6 +124,16 @@ static func get_all() -> Array:
 			"values": [1, 1, 2, 2, 3, 3, 4, 5],  # orbiter count (display)
 		},
 		{
+			"id": "weapon_bow",
+			"type": "weapon",
+			"name": "Bogen",
+			"description": "Schießt Pfeile auf entfernte Feinde. Mehr Pfeile & Schaden pro Level.",
+			"icon_region": Rect2(224, 0, 32, 32), # vorerst gleiche Icon-Region wie Klingen
+			"max_level": 8,
+			"rarity": "uncommon",
+			"values": [1, 1, 2, 2, 3, 3, 4, 5],  # arrow count (display)
+		},
+		{
 			"id": "weapon_lightning",
 			"type": "weapon",
 			"name": "Kettenblitz",

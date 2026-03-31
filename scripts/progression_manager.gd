@@ -8,23 +8,31 @@ const SAVE_PATH := "user://progression.cfg"
 const CHARS: Dictionary = {
 	# Sprite coordinates are 0-based (row 0 / col 0 oben links).
 	"rogue":  {"name": "Diebin",        "sprite_col": 3, "sprite_row": 0, "hp": 100, "speed": 150.0, "damage": 10.0, "weapon": "weapon_knives",    "unlock_cost": 0}, # 1.d rogue
-	"bowman": {"name": "Bogenschütze",  "sprite_col": 2, "sprite_row": 0, "hp": 85,  "speed": 145.0, "damage": 11.0, "weapon": "weapon_orbiter",   "unlock_cost": 0}, # 1.c ranger
+	"bowman": {"name": "Bogenschütze",  "sprite_col": 2, "sprite_row": 0, "hp": 85,  "speed": 145.0, "damage": 11.0, "weapon": "weapon_bow",       "unlock_cost": 0}, # 1.c ranger
 	"tank":   {"name": "Ritter",        "sprite_col": 0, "sprite_row": 0, "hp": 160, "speed": 90.0,  "damage": 8.0,  "weapon": "weapon_garlic",    "unlock_cost": 150}, # 1.a dwarf/knight-sprite
 	"mage":   {"name": "Magierin",      "sprite_col": 1, "sprite_row": 4, "hp": 70,  "speed": 130.0, "damage": 14.0, "weapon": "weapon_lightning", "unlock_cost": 200}, # 5.b male wizard
 }
 
 # Permanent upgrade definitions
 const PERM_UPGRADES: Dictionary = {
-	"hp":     {"name": "Max HP",          "max_level": 5, "costs": [50, 100, 150, 200, 300], "hp_per_level": 10},
-	"damage": {"name": "Schaden",         "max_level": 5, "costs": [75, 125, 175, 250, 350], "pct_per_level": 5.0},
-	"speed":  {"name": "Geschwindigkeit", "max_level": 5, "costs": [50, 100, 150, 200, 300], "pct_per_level": 3.0},
+	"hp":           {"name": "Vitalität",     "icon": "♥", "max_level": 5, "costs": [30,  60,  100, 160, 250], "hp_per_level": 10},
+	"damage":       {"name": "Stärke",        "icon": "⚔", "max_level": 5, "costs": [30,  60,  100, 160, 250], "pct_per_level": 8.0},
+	"speed":        {"name": "Schnelligkeit", "icon": "👟", "max_level": 5, "costs": [25,  50,  85,  140, 220], "pct_per_level": 6.0},
+	"attack_speed": {"name": "Hast",          "icon": "🏹", "max_level": 5, "costs": [35,  65,  110, 175, 270], "pct_per_level": 5.0},
+	"armor":        {"name": "Panzerung",     "icon": "🛡", "max_level": 5, "costs": [40,  80,  130, 200, 300], "flat_per_level": 1.0},
+	"hp_regen":     {"name": "Regeneration",  "icon": "💚", "max_level": 5, "costs": [35,  70,  120, 190, 280], "regen_per_level": 0.3},
+	"pickup_range": {"name": "Magnetismus",   "icon": "🧲", "max_level": 5, "costs": [20,  40,  70,  120, 200], "pct_per_level": 10.0},
+	"gold_bonus":   {"name": "Gier",          "icon": "💰", "max_level": 5, "costs": [50,  100, 170, 260, 400], "pct_per_level": 10.0},
 }
 
 var total_gold: int = 0
 var run_gold: int = 0
 var selected_char: String = "rogue"
 var unlocked_chars: Array = ["rogue", "bowman"]
-var perm_levels: Dictionary = {"hp": 0, "damage": 0, "speed": 0}
+var perm_levels: Dictionary = {
+	"hp": 0, "damage": 0, "speed": 0,
+	"attack_speed": 0, "armor": 0, "hp_regen": 0, "pickup_range": 0, "gold_bonus": 0,
+}
 
 func _ready() -> void:
 	load_data()
@@ -36,7 +44,9 @@ func add_run_gold(amount: int) -> void:
 	emit_signal("run_gold_changed", run_gold)
 
 func end_run() -> void:
-	total_gold += run_gold
+	var gold_bonus_lvl: int = perm_levels.get("gold_bonus", 0)
+	var mult: float = 1.0 + gold_bonus_lvl * PERM_UPGRADES["gold_bonus"]["pct_per_level"] / 100.0
+	total_gold += int(run_gold * mult)
 	run_gold = 0
 	save()
 
@@ -61,6 +71,18 @@ func get_perm_bonus_damage_pct() -> float:
 
 func get_perm_bonus_speed_pct() -> float:
 	return perm_levels.get("speed", 0) * PERM_UPGRADES["speed"]["pct_per_level"]
+
+func get_perm_bonus_attack_speed_pct() -> float:
+	return perm_levels.get("attack_speed", 0) * PERM_UPGRADES["attack_speed"]["pct_per_level"]
+
+func get_perm_bonus_armor() -> float:
+	return perm_levels.get("armor", 0) * PERM_UPGRADES["armor"]["flat_per_level"]
+
+func get_perm_bonus_hp_regen() -> float:
+	return perm_levels.get("hp_regen", 0) * PERM_UPGRADES["hp_regen"]["regen_per_level"]
+
+func get_perm_bonus_pickup_range_pct() -> float:
+	return perm_levels.get("pickup_range", 0) * PERM_UPGRADES["pickup_range"]["pct_per_level"]
 
 # ── Shop purchases ───────────────────────────────────────────────────────────
 
@@ -109,9 +131,8 @@ func save() -> void:
 	config.set_value("progress", "total_gold", total_gold)
 	config.set_value("progress", "unlocked_chars", unlocked_chars)
 	config.set_value("progress", "selected_char", selected_char)
-	config.set_value("progress", "perm_hp", perm_levels["hp"])
-	config.set_value("progress", "perm_damage", perm_levels["damage"])
-	config.set_value("progress", "perm_speed", perm_levels["speed"])
+	for key in perm_levels:
+		config.set_value("progress", "perm_" + key, perm_levels[key])
 	config.save(SAVE_PATH)
 
 func load_data() -> void:
@@ -121,6 +142,5 @@ func load_data() -> void:
 	total_gold     = config.get_value("progress", "total_gold", 0)
 	unlocked_chars = config.get_value("progress", "unlocked_chars", ["rogue", "bowman"])
 	selected_char  = config.get_value("progress", "selected_char", "rogue")
-	perm_levels["hp"]     = config.get_value("progress", "perm_hp", 0)
-	perm_levels["damage"] = config.get_value("progress", "perm_damage", 0)
-	perm_levels["speed"]  = config.get_value("progress", "perm_speed", 0)
+	for key in perm_levels:
+		perm_levels[key] = config.get_value("progress", "perm_" + key, 0)

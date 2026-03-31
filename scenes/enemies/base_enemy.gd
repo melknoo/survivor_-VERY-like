@@ -7,11 +7,13 @@ signal died_signal
 @export var damage: float = 10.0
 @export var xp_value: int = 5
 @export var gold_value: int = 1
+@export var gold_drop_chance: float = 0.4
 @export var particle_color: Color = Color(0.9, 0.3, 0.1)
 @export var enemy_type: String = "skeleton"
 @export var knockback_resistance: float = 0.0
 
 const XP_GEM_SCENE := preload("res://scenes/pickups/xp_gem.tscn")
+const GOLD_GEM_SCENE := preload("res://scenes/pickups/gold_gem.tscn")
 const DEATH_PARTICLES_SCENE := preload("res://scenes/effects/death_particles.tscn")
 const DAMAGE_NUMBER_SCENE := preload("res://scenes/effects/damage_number.tscn")
 
@@ -256,8 +258,9 @@ func _die() -> void:
 	if cam:
 		cam.shake(3.0, 0.2)
 
-	# Gold drop
-	Progression.add_run_gold(gold_value)
+	# Gold drop (chance-based physical gem)
+	if randf() < gold_drop_chance:
+		_spawn_gold_gem()
 
 	# Spawn XP gem
 	_spawn_xp_gem()
@@ -273,6 +276,18 @@ func _on_animation_finished() -> void:
 		call_deferred("queue_free")
 	elif _sprite.animation == "hurt" and not _is_dead:
 		_sprite.play("walk")
+
+func _spawn_gold_gem() -> void:
+	var pickups := get_tree().get_first_node_in_group("pickups_container")
+	if not pickups:
+		return
+	var gem := GOLD_GEM_SCENE.instantiate()
+	gem.gold_value = gold_value
+	gem.global_position = global_position + Vector2(randf_range(-6, 6), randf_range(-6, 6))
+	call_deferred("_add_gold_gem", pickups, gem)
+
+func _add_gold_gem(container: Node, gem: Node) -> void:
+	container.add_child(gem)
 
 func _spawn_xp_gem() -> void:
 	var pickups := get_tree().get_first_node_in_group("pickups_container")

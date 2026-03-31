@@ -143,6 +143,7 @@ func _build_card(char_id: String, w: float, h: float) -> Control:
 	var weapon_names := {
 		"weapon_knives": "Klingen",
 		"weapon_orbiter": "Orbiter",
+		"weapon_bow": "Bogen",
 		"weapon_garlic": "Knoblauch-Aura",
 		"weapon_lightning": "Kettenblitz",
 	}

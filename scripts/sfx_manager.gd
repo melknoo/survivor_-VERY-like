@@ -4,20 +4,20 @@ extends Node
 # play() picks one at random and applies slight pitch variation.
 const SOUNDS: Dictionary = {
 	"knife_throw": [
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-001.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-002.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-003.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-004.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-005.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Sword Slash_HY_PC-006.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-001.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-002.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-003.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-004.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-005.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-006.wav",
 	],
 	"knife_hit": [
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-001.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-002.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-003.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-004.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-005.wav",
-		"res://assets/Sounds/DSGNMisc_MELEE-Bit Sword_HY_PC-006.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-001.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-002.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-003.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-004.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-005.wav",
+		"res://assets/Sounds/DSGNMisc_HIT-Gore Pierce_HY_PC-006.wav",
 	],
 	"garlic_pulse": [
 		"res://assets/Sounds/DSGNImpt_EXPLOSION-Flare Nova_HY_PC-001.wav",
@@ -98,6 +98,14 @@ const SOUNDS: Dictionary = {
 		"res://assets/Sounds/DSGNImpt_EXPLOSION-Forced Shutdown_HY_PC-001.wav",
 		"res://assets/Sounds/DSGNImpt_EXPLOSION-Forced Shutdown_HY_PC-002.wav",
 		"res://assets/Sounds/DSGNImpt_EXPLOSION-Forced Shutdown_HY_PC-003.wav",
+	],
+	"gold_pickup": [
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-001.wav",
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-002.wav",
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-003.wav",
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-004.wav",
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-005.wav",
+		"res://assets/Sounds/DSGNTonl_SKILL IMPACT-Coin Impact_HY_PC-006.wav",
 	],
 	"xp_pickup": [
 		"res://assets/Sounds/DSGNTonl_USABLE-Coin Toss_HY_PC-001.wav",
