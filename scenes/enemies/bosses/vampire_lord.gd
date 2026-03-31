@@ -36,6 +36,7 @@ func _ready() -> void:
 	move_speed = P1_SPEED
 	damage = 25.0
 	xp_value = 50
+	gold_value = 25
 	knockback_resistance = 1.0
 	particle_color = Color(0.65, 0.0, 0.1)
 	super._ready()

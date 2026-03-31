@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-const GAME_WORLD_SCENE := "res://scenes/game_world.tscn"
+const CHAR_SELECT_SCENE := "res://scenes/ui/character_select.tscn"
 
 var _buttons: Array = []
 
@@ -112,12 +112,12 @@ func _build_title() -> void:
 	add_child(subtitle)
 
 func _build_buttons() -> void:
-	var labels := ["SPIELEN", "EINSTELLUNGEN", "BEENDEN"]
-	var start_y := 450.0
+	var labels := ["SPIELEN", "SHOP", "EINSTELLUNGEN", "BEENDEN"]
+	var start_y := 400.0
 
 	for i in range(labels.size()):
 		var btn := _make_menu_button(labels[i])
-		btn.position = Vector2(960 - 160, start_y + i * 90)
+		btn.position = Vector2(960 - 160, start_y + i * 84)
 		btn.modulate.a = 0.0
 		add_child(btn)
 		_buttons.append(btn)
@@ -138,6 +138,8 @@ func _make_menu_button(label_text: String) -> NinePatchRect:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.anchors_preset = Control.PRESET_FULL_RECT
+	label.position = Vector2.ZERO
+	label.size = container.size
 	label.add_theme_font_size_override("font_size", 22)
 	label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.85))
 	label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.6))
@@ -161,8 +163,9 @@ func _on_button_gui_input(event: InputEvent, container: NinePatchRect) -> void:
 			SFX.play("button_click", 0.0)
 			match idx:
 				0: _on_play()
-				1: _on_settings()
-				2: _on_quit()
+				1: _on_shop()
+				2: _on_settings()
+				3: _on_quit()
 
 func _on_button_hover_enter(container: NinePatchRect) -> void:
 	container.texture = load("res://assets/UI/Buttons/Button_Hover_9Slides.png")
@@ -187,7 +190,12 @@ func _animate_entrance() -> void:
 		tw.parallel().tween_property(btn, "position:y", target_y, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_play() -> void:
-	_fade_to_scene(GAME_WORLD_SCENE)
+	_fade_to_scene(CHAR_SELECT_SCENE)
+
+func _on_shop() -> void:
+	var shop := CanvasLayer.new()
+	shop.set_script(preload("res://scenes/ui/meta_shop.gd"))
+	add_child(shop)
 
 func _on_settings() -> void:
 	var settings := CanvasLayer.new()

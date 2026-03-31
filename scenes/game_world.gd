@@ -56,11 +56,33 @@ func _setup_world_generator() -> void:
 	add_child(_world_gen)
 
 func _setup_player() -> void:
+	var cd: Dictionary = Progression.get_selected_char_data()
+	var perm_hp: int = Progression.get_perm_bonus_hp()
+	var perm_dmg_pct: float = Progression.get_perm_bonus_damage_pct()
+	var perm_spd_pct: float = Progression.get_perm_bonus_speed_pct()
+
+	var final_hp: int = cd["hp"] + perm_hp
+	var final_speed: float = cd["speed"] * (1.0 + perm_spd_pct / 100.0)
+	var final_damage: float = cd["damage"] * (1.0 + perm_dmg_pct / 100.0)
+
 	_player = PLAYER_SCENE.instantiate()
+	# Set before add_child so _ready() uses the correct sprite region
+	_player.char_col = cd["sprite_col"]
+	_player.char_row = cd["sprite_row"]
+	_player.max_hp = final_hp
+	_player.base_max_hp = final_hp
+	_player.move_speed = final_speed
+	_player.base_move_speed = final_speed
+	_player.attack_damage = final_damage
+	_player.base_attack_damage = final_damage
 	_player.position = Vector2.ZERO
 	add_child(_player)
+
 	_player.died.connect(_on_player_died)
 	_player.level_up.connect(_on_level_up)
+
+	# Set starting weapon for this character
+	_upgrade_manager.set_starting_weapon(cd["weapon"])
 
 func _setup_camera() -> void:
 	var cam := Camera2D.new()
@@ -83,6 +105,9 @@ func _setup_hud() -> void:
 	_player.hp_changed.connect(_hud.update_hp)
 	_player.xp_changed.connect(_hud.update_xp)
 	_player.level_changed.connect(_hud.update_level)
+	Progression.run_gold_changed.connect(_hud.update_gold)
+	Progression.run_gold = 0
+	_hud.update_gold(0)
 
 func _setup_vignette() -> void:
 	var vignette_layer := CanvasLayer.new()

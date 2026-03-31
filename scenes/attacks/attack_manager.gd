@@ -10,8 +10,9 @@ const WEAPON_SCRIPTS: Dictionary = {
 var _weapons: Dictionary = {}  # weapon_id -> BaseWeapon node
 
 func _ready() -> void:
-	# Knives is the default starting weapon
-	add_or_upgrade_weapon("weapon_knives")
+	# Starting weapon is determined by the selected character
+	var char_data: Dictionary = Progression.get_selected_char_data()
+	add_or_upgrade_weapon(char_data["weapon"])
 
 func add_or_upgrade_weapon(weapon_id: String) -> void:
 	if _weapons.has(weapon_id):

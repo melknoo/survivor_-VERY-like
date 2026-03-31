@@ -5,6 +5,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func setup(survival_time: float, kills: int, level: int) -> void:
+	var earned_gold: int = Progression.run_gold
+	Progression.end_run()
 	var overlay := ColorRect.new()
 	overlay.color = Color(0.0, 0.0, 0.0, 0.0)
 	overlay.anchors_preset = Control.PRESET_FULL_RECT
@@ -17,8 +19,8 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 
 	# Panel
 	var panel := PanelContainer.new()
-	panel.size = Vector2(480, 360)
-	panel.position = Vector2(1920 / 2.0 - 240, 1080 / 2.0 - 180)
+	panel.size = Vector2(480, 400)
+	panel.position = Vector2(1920 / 2.0 - 240, 1080 / 2.0 - 200)
 	panel.modulate.a = 0.0
 
 	var style := StyleBoxFlat.new()
@@ -65,6 +67,7 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 		["Survived", "%d:%02d" % [minutes, seconds]],
 		["Kills", str(kills)],
 		["Level", str(level)],
+		["Gold", "⬡ %d" % earned_gold],
 	]:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 0)
@@ -81,7 +84,8 @@ func setup(survival_time: float, kills: int, level: int) -> void:
 		val_label.text = stat[1]
 		val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		val_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		val_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.8))
+		var val_color := Color(1.0, 0.85, 0.2) if stat[0] == "Gold" else Color(1.0, 0.95, 0.8)
+		val_label.add_theme_color_override("font_color", val_color)
 		val_label.add_theme_font_size_override("font_size", 18)
 		row.add_child(val_label)
 

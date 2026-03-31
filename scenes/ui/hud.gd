@@ -5,6 +5,7 @@ var _xp_bar: ProgressBar
 var _level_label: Label
 var _timer_label: Label
 var _kill_label: Label
+var _gold_label: Label
 
 func _ready() -> void:
 	add_to_group("hud")
@@ -99,6 +100,16 @@ func _build_ui() -> void:
 	_kill_label.add_theme_font_size_override("font_size", 16)
 	root.add_child(_kill_label)
 
+	# === Gold counter (below kills) ===
+	_gold_label = Label.new()
+	_gold_label.text = "⬡ 0"
+	_gold_label.size = Vector2(120, 30)
+	_gold_label.position = Vector2(1780, 78)
+	_gold_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_gold_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+	_gold_label.add_theme_font_size_override("font_size", 16)
+	root.add_child(_gold_label)
+
 func update_hp(current: int, maximum: int) -> void:
 	if not _hp_bar:
 		return
@@ -141,3 +152,12 @@ func update_kills(count: int) -> void:
 	var tween := create_tween()
 	tween.tween_property(_kill_label, "scale", Vector2(1.3, 1.3), 0.06)
 	tween.tween_property(_kill_label, "scale", Vector2(1.0, 1.0), 0.1)
+
+func update_gold(amount: int) -> void:
+	if not _gold_label:
+		return
+	_gold_label.text = "⬡ %d" % amount
+	_gold_label.pivot_offset = _gold_label.size / 2.0
+	var tween := create_tween()
+	tween.tween_property(_gold_label, "scale", Vector2(1.3, 1.3), 0.06)
+	tween.tween_property(_gold_label, "scale", Vector2(1.0, 1.0), 0.1)

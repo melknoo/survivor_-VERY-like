@@ -8,8 +8,15 @@ func _ready() -> void:
 	_db = UpgradeDatabase.get_all()
 	for upg in _db:
 		_levels[upg["id"]] = 0
-	# Player always starts with knives at level 1
-	_levels["weapon_knives"] = 1
+	# Starting weapon is set by game_world via set_starting_weapon()
+
+func set_starting_weapon(weapon_id: String) -> void:
+	# Reset all weapon levels, then set the chosen starting weapon to 1
+	for upg in _db:
+		if upg.get("type", "passive") == "weapon":
+			_levels[upg["id"]] = 0
+	if _levels.has(weapon_id):
+		_levels[weapon_id] = 1
 
 func get_upgrade_level(id: String) -> int:
 	return _levels.get(id, 0)

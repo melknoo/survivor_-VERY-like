@@ -6,6 +6,7 @@ signal died_signal
 @export var move_speed: float = 80.0
 @export var damage: float = 10.0
 @export var xp_value: int = 5
+@export var gold_value: int = 1
 @export var particle_color: Color = Color(0.9, 0.3, 0.1)
 @export var enemy_type: String = "skeleton"
 @export var knockback_resistance: float = 0.0
@@ -254,6 +255,9 @@ func _die() -> void:
 	var cam := get_tree().get_first_node_in_group("camera")
 	if cam:
 		cam.shake(3.0, 0.2)
+
+	# Gold drop
+	Progression.add_run_gold(gold_value)
 
 	# Spawn XP gem
 	_spawn_xp_gem()
